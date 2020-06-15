@@ -1,0 +1,8 @@
+{
+  "/api/*": {
+  "target": "https://maven-api.hireconsultingwhiz.com",
+  "secure": false,
+  "logLevel": "debug",
+  "changeOrigin": true
+  }
+}

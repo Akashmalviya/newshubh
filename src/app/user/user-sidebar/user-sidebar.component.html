@@ -1,0 +1,49 @@
+<aside id="main-sidebar" class="main-sidebar">
+    <div class="sidebar-head">
+        <div class="text-center">
+            <a class="logo" routerLink="/user/dashboard">BRYSKIT</a>
+        </div>
+        <div class="logo-img">
+            <img src="{{currentData.data.image }}">
+        </div>
+        <a routerLink="/user/orders/new-order" class="btn btn-common text-light btn-block"><i class="fa fa-plus"></i> new delivery</a>
+    </div>
+    <div class="sidebar-menu-div">
+        <ul class="sidebar-menu">
+            <li routerLinkActive="active">
+                <a routerLink="/user/dashboard">
+                    <span class="icon-dashboard"></span> <span>Dashboard</span>
+                </a>
+            </li>
+            <li routerLinkActive="active">
+                <a routerLink="/user/orders">
+                    <span class="icon-shopping-bag"></span> <span>My Orders</span>
+                </a>
+            </li>
+            <li routerLinkActive="active">
+                <a routerLink="/user/invoices">
+                    <span class="icon-invoice"></span> <span>Invoices</span>
+                </a>
+            </li>
+            <li routerLinkActive="active">
+                <a routerLink="/user/address-book">
+                    <span class="icon-Address-Book"></span> <span>Address Book</span>
+                </a>
+            </li>
+            <li routerLinkActive="active">
+                <a href="#" routerLink="/user/account">
+                    <span class="icon-User"></span> <span>Account</span>
+                </a>
+            </li>
+            <!-- <li routerLinkActive="active">
+
+                <a href="#" routerLink="/user/payment-steps">
+                    <span class="icon-Settings"></span> <span>Setting</span>
+                </a>
+            </li> -->
+        </ul>
+    </div>
+</aside>
+
+<!-- Modal -->
+<!-- Modal -->

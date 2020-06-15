@@ -1,0 +1,194 @@
+<div class="content-header">
+    <div class="c-head-left">Address book</div>
+    <div class="c-head-left">
+        <button class="btn btn-common" *ngIf="!toggleData" (click)="toggleData ? toggleData = false : toggleData = true"><i class="fa fa-plus"></i>Add New Address</button>
+    </div>
+</div>
+<div class="card mb-5" *ngIf="toggleData">
+    <div class="card-header">
+        <div class="form-group with-left-icon animate-lable focused">
+            <i class="fa fa-search left-icon"></i>
+            <label>Search</label>
+            <input type="text" placeholder="Search by Company Name" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)">
+        </div>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="dropOrder" style="color: black;" (ngSubmit)="addAddresContact()">
+            <div class="row px-3 gutter-10">
+
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field style="width: 100%;" appearance="fill">
+                        <mat-label>Company name</mat-label>
+                        <input matInput placeholder="Company name" formControlName="dropupCompanyName" required>
+                        <mat-error *ngIf="addressForm.dropupCompanyName.errors?.required">
+                            This is field <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field style="width: 100%;" appearance="fill">
+                        <mat-label>Contact Person Name</mat-label>
+                        <input matInput placeholder="Company name" formControlName="dropupContactPersonName" pattern='[A-Za-z\s]*' required>
+                        <mat-error *ngIf="addressForm.dropupContactPersonName.errors?.required">
+                            This is field <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="addressForm.dropupContactPersonName.errors?.pattern">
+                            Numbers are not allowed in <strong>name field.</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6 mycolor">
+                    <mat-form-field style="width: 100%;" appearance="fill">
+                        <mat-label>Steet Address</mat-label>
+                        <input readonly matInput placeholder="Steet Address" class="mycolor" formControlName="dropupStreetAddress" required>
+                        <mat-error *ngIf="addressForm.dropupStreetAddress.errors?.required">
+                            This is field <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field style="width: 100%;" appearance="fill">
+                        <mat-label>Address 2 </mat-label>
+                        <input matInput placeholder="Address 2" formControlName="dropupAddress2">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field style="width: 100%;" appearance="fill">
+                        <mat-label>Moblie Number</mat-label>
+                        <input matInput placeholder="Moblie Number" type="number" minlength="10" maxlength="12" formControlName="dropupMobileNumber" name="dropupMobileNumber" required>
+                        <mat-error *ngIf="addressForm.dropupMobileNumber.errors?.required">
+                            This is field <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="addressForm.dropupMobileNumber.errors?.minlength">
+                            Number must be at least <strong>10</strong> characters long.
+
+                        </mat-error>
+                        <mat-error *ngIf="addressForm.dropupMobileNumber.errors?.maxlength">
+                            Number must be at most <strong>11</strong> characters long.
+                        </mat-error>
+                        <mat-error *ngIf="addressForm.dropupMobileNumber.errors?.pattern">
+                            Number must be at least <strong>10</strong> and at most <strong>11</strong> characters long.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field style="width: 100%;" appearance="fill">
+                        <mat-label>City</mat-label>
+                        <input matInput placeholder="Country" formControlName="dropupCity">
+                        <mat-error *ngIf="addressForm.dropupCity.errors?.required">
+                            This is field <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field style="width: 100%;" appearance="fill">
+                        <mat-label>State</mat-label>
+                        <input matInput placeholder="State" formControlName="dropupState">
+                        <mat-error *ngIf="addressForm.dropupState.errors?.required">
+                            This is field <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field style="width: 100%;" appearance="fill">
+                        <mat-label>Postal Code</mat-label>
+                        <input matInput placeholder="Postal Code" formControlName="dropupPostalCode" required>
+                        <mat-error *ngIf="addressForm.dropupPostalCode.errors?.required">
+                            This is field <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="addressForm.dropupPostalCode.errors?.pattern">
+                            Invaild <strong>Postal Code</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="text-right">
+                <button mat-button color="warn" type="submit" (click)="addAddresContact()"><i class="fa fa-plus"></i> Add New Address</button>
+                <button mat-button (click)="toggleData ? toggleData = false : toggleData = true; dropOrder.reset()"><i class="fas fa-remove-format"></i> Cancel</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div class="row gutter-10 ">
+    <div class="col-12">
+        <div class="vcard vcard-with-shadow pt-3 pt-xl-4">
+            <div class="vcard-body">
+
+
+
+                <div class="row gutter-10">
+                    <div class="col-xl-6 col-12 mb-20 " *ngFor="let item of address.data">
+                        <div class="vcard addres-card h-100">
+                            <div class="vcard-head">
+                                <h3>{{item.dropupCompanyName}}</h3>
+                                <div class="vcard-head-right">
+                                    <!-- <a class="card-link no-underline" href="javascript:void(0);" matTooltip="Edit"><span class="icon-edit"></span></a> -->
+                                    <a class="card-link no-underline" href="javascript:void(0);" (click)="openModel(item._id)" matTooltip="Delete"><span class="icon-delete"></span></a>
+                                </div>
+                            </div>
+                            <div class="vcard-body">
+                                <div class="row gutter-5">
+
+                                    <div class="col-md-4 col-sm-6 col-12">
+                                        <div class="adress-book-text">
+                                            <label>Contact Phone Number :</label> {{item.dropupMobileNumber}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12">
+                                        <div class="adress-book-text">
+                                            <label>Street Address :</label> {{item.dropupStreetAddress}}
+                                        </div>
+                                    </div>
+                                    <div *ngIf="item.dropupAddress2 != ''" class="col-md-4 col-sm-6 col-12">
+                                        <div class="adress-book-text">
+                                            <label>Address 1 :</label> {{item.dropupAddress2}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12">
+                                        <div class="adress-book-text">
+                                            <label>Contact Person :</label> {{item.dropupContactPersonName}}
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-4 col-sm-6 col-12">
+                                        <div class="adress-book-text">
+                                            <label>Role :</label> Operation Manager
+                                        </div>
+                                    </div> -->
+
+                                    <div class="col-md-4 col-sm-6 col-12">
+                                        <div class="adress-book-text">
+                                            <label>City :</label> {{item.dropupCity}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12">
+                                        <div class="adress-book-text">
+                                            <label>State :</label> {{item.dropupState}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12">
+                                        <div class="adress-book-text">
+                                            <label>Postal Code :</label> {{item.dropupPostalCode}}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div *ngIf="address.data?.length == 0" [hidden]="!loading" class="cstm_css text-center m-5">Data Not Found</div>
+
+                <div class="lds-facebook loction" [hidden]="loading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

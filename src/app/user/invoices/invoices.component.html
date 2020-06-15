@@ -1,0 +1,71 @@
+<div class="content-header">
+    <div class="c-head-left">Invoices</div>
+</div>
+<div class="row gutter-10 orderDiv-Current">
+    <div class="col-12">
+        <div class="vcard">
+            <div class="vcard-head">
+
+                <h3>Paid Invoices</h3>
+
+            </div>
+
+
+            <div class="vcard-body">
+                <div class="md-responsive">
+                    <table class="table table-common" cellspacing="0">
+                        <thead class="">
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Order Date</th>
+                                <th>Pickup Location</th>
+                                <th>Drop Off Location</th>
+                                <th>Reciver</th>
+                                <th>Total Cost</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let item of orderData.reverse() | filter : search | paginate: { itemsPerPage: 5, currentPage: p } ">
+                                <td>
+                                    {{item._id}}
+                                </td>
+                                <td>{{item.orderDate | date: 'mediumDate'}}</td>
+                                <td>
+                                    {{item.picupAddress}}
+                                </td>
+                                <td>{{item.dropupStreetAddress}}</td>
+                                <td>{{item.dropupCompanyName}}</td>
+
+                                <td>{{item.orderEstimatedCharge}}</td>
+
+                                <td *ngIf="item.paymentStatus">Paid</td>
+                                <td *ngIf="!item.paymentStatus">Unpaid</td>
+                                <td *ngIf="item.paymentData === null">
+                                    <a class="btn btn-sm btn-outline" routerLink="/user/invoices/invoicesDetails/{{item._id}}">DETAILS</a>
+                                </td>
+                                <td *ngIf="item.paymentData != null">
+                                    <a class="btn btn-sm btn-outline" routerLink="/user/invoices/invoicesDetails/{{item._id}}">DETAILS</a>
+                                    <a [href]="item.paymentData.receipt_url" target="_blank" class=" btn btn-sm btn-outline btn-outline-blue mt-1">RECEIPT</a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls *ngIf="orderData?.length != 0" (pageChange)="p = $event" responsive="true" class="text-center my-pagination" [hidden]="loading"></pagination-controls>
+
+                    <div *ngIf="orderData?.length == 0" [hidden]="loading" class="cstm_css text-center m-5">Data Not Found</div>
+                    <div class="lds-facebook loction" [hidden]="!loading">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

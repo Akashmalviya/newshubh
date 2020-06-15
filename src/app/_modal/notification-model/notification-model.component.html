@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>
+    Notifications</h1>
+<div mat-dialog-content class="mat-typography">
+    <ul class="list-unstyled notification-list m-0" *ngFor="let item of filteredArray">
+        <li class="mb-2 mt-2 ml-2">
+            <div class="title">
+                <i class="fa fa-bell"></i> <a class="ml-1 text-dark" routerLink="/user/orders/details/{{item.orderId}}" (click)="readNotification(item._id);dialogRef.close()"> {{item.message | titlecase}} </a>
+            </div>
+            <div class="date text-black-50">{{item.createdAt | date : 'medium'}}
+                <mat-chip class="chip" color="warn" *ngIf="!item.read">
+                    new
+                </mat-chip>
+            </div>
+        </li>
+        <mat-divider></mat-divider>
+    </ul>
+
+</div>
+
+
+
+
+<div mat-dialog-actions>
+
+    <!-- <pagination-controls *ngIf="notification?.length != 0" (pageChange)="p = $event" responsive="true" class="my-pagination"></pagination-controls> -->
+    <mat-paginator [length]="id.notification.length" [pageSize]="5" [pageSizeOptions]="[5,10]" (page)="pageEvent = $event; onPaginateChange($event)">
+    </mat-paginator>
+    <!-- <button mat-button mat-dialog-close>Close</button> -->
+</div>
+<div class="mt-3 text-right">
+    <button mat-stroked-button (click)="dialogRef.close()">Close</button>
+</div>

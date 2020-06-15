@@ -1,0 +1,32 @@
+<div class="text-right" *ngIf="id.id === 1 || 4">
+    <i class="fas fa-times" mat-dialog-close></i>
+</div>
+<div mat-dialog-content class="text-center" *ngIf="id.id === 1">
+    <img src="../../../assets/images/error.png" alt="" srcset="">
+    <h1 mat-dialog-title class="m-4"> Service not available in this reason</h1>
+</div>
+<div mat-dialog-content class="text-center" *ngIf="id.id === 2">
+    <img src="../../../assets/images/box.png" alt="" srcset="" height="200px" width="200px">
+    <h1 mat-dialog-title class="m-4"> Your order is successfully created</h1>
+    <button mat-flat-button color="primary" class="btn-block mb-2" (click)="dialogRef.close()">DONE</button>
+</div>
+<div mat-dialog-content class="text-center" *ngIf="id.id === 3">
+    <!-- <img src="../../../assets/images/cancelle.png" alt="" srcset="" height="200px" width="200px"> -->
+    <h1 mat-dialog-title class="m-4"> ORDER HAS BEEN CANCELED</h1>
+    <button mat-flat-button color="warn" class="btn-block mb-2" (click)="dialogRef.close()">DONE</button>
+</div>
+<div mat-dialog-content class="text-center" *ngIf="id.id === 4">
+    <img src="../../../assets/images/done.png" alt="" srcset="" height="200px" width="200px">
+    <h1 mat-dialog-title class="m-4"> Your return request has been send!!</h1>
+    <!-- <button mat-flat-button color="warn" class="btn-block mb-2" (click)="dialogRef.close()">DONE</button> -->
+</div>
+<div mat-dialog-content class="text-center" *ngIf="id.id === 5">
+    <img src="../../../assets/images/done.png" alt="" srcset="" height="200px" width="200px">
+    <h1 mat-dialog-title class="m-4"> Your request has been send!!</h1>
+    <!-- <button mat-flat-button color="warn" class="btn-block mb-2" (click)="dialogRef.close()">DONE</button> -->
+</div>
+
+
+<!-- <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+</div> -->

@@ -1,0 +1,270 @@
+<div class="container">
+    <div class="front-module">
+        <div class="login-wrapper">
+            <div class="login-bg-img"></div>
+
+            <div class="card card-new">
+                <div class="card-body">
+                    <alert></alert>
+
+                    <mat-horizontal-stepper [linear]="isLinear" #stepper completed="false">
+                        <mat-step [stepControl]="registerForm" [editable]="isEditable">
+                            <form [formGroup]="registerForm" autocomplete="off">
+                                <ng-template matStepLabel>Fill out your details</ng-template>
+                                <div class="login-box-head">
+                                    <h1>BRYSKIT</h1>
+                                    <div class="title-login">Get Started For Free</div>
+                                </div>
+                                <label class="label-dark">Tell us about the company</label>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <input id="companyformControlName" type="text" class="form-control" placeholder="Company Name" formControlName="companyName" [ngClass]="{ 'is-invalid': submitted && regForm.companyName.errors }">
+                                        <div *ngIf="submitted && regForm.companyName.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm.companyName.errors.required">this field is required</div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group col-md-6">
+                                        <input type="number" id="companyPhone" minlength="6" maxlength="10" class="form-control" placeholder="Company Phone Number" type="number" formControlName="companyPhone" [ngClass]="{ 'is-invalid': submitted && regForm.companyPhone.errors }">
+                                        <div *ngIf="submitted && regForm.companyPhone.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm.companyPhone.errors.required">this field is required</div>
+                                            <div *ngIf="regForm.companyPhone.errors.minlength">Min</div>
+                                            <div *ngIf="regForm.companyPhone.errors.maxlength">Max</div>
+                                        </div>
+                                    </div> -->
+                                    <div class="form-group col-md-6">
+                                        <input id="companyPhone" class="form-control" type="text" placeholder="Company Phone" formControlName="companyPhone" [ngClass]="{ 'is-invalid': submitted && regForm.companyPhone.errors }">
+                                        <div *ngIf="submitted && regForm.companyPhone.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm.companyPhone.errors.required">Invalid phone number</div>
+                                            <div *ngIf="regForm.companyPhone.errors.minlength">Minimum lenght should be 6</div>
+                                            <div *ngIf="regForm.companyPhone.errors.maxlength">maxlength lenght should be 10</div>
+                                            <div *ngIf="regForm.companyPhone.errors.pattern">Invalid phone number</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input id="companyEmail" type="email" class="form-control" placeholder="Company Email" formControlName="companyEmail" [ngClass]="{ 'is-invalid': submitted && regForm.companyEmail.errors }">
+                                        <div *ngIf="submitted && regForm.companyEmail.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm.companyEmail.errors.required">this field is required</div>
+                                            <div *ngIf="regForm.companyEmail.errors.email">Email must be a valid email address</div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input id="confirmEmail" type="email" class="form-control" placeholder="Confirm Email" formControlName="confirmEmail" [ngClass]="{ 'is-invalid': submitted && regForm.confirmEmail.errors }">
+                                        <div *ngIf="submitted && regForm.confirmEmail.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm.confirmEmail.errors.required">this fieldis required</div>
+                                            <div *ngIf="regForm.confirmEmail.errors.email">Email must be a valid email address</div>
+                                        </div>
+                                        <div style="  color:red;
+                                        font-size: 12px;" *ngIf=" registerForm.errors?.emailNotMatch && regForm.confirmEmail.touched ">
+                                            Email must be same
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input id="password" class="form-control" minlength="8" placeholder="Password" formControlName="password" type="password" [ngClass]="{ 'is-invalid': submitted && regForm.password.errors }">
+                                        <div *ngIf="submitted && regForm.password.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm.password.errors.required">this field is required</div>
+                                            <div *ngIf="regForm.password.errors.minlength">Password must be at least 8 characters</div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input id="confirmpassword" class="form-control" placeholder="Confirm Password" formControlName="confirmpassword" type="password" [ngClass]="{ 'is-invalid': submitted && regForm.confirmpassword.errors }">
+                                        <div *ngIf="submitted && regForm.confirmpassword.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm.confirmpassword.errors.required">this field is required</div>
+
+                                        </div>
+                                        <div style="  color:red;
+                                        font-size: 12px;" *ngIf=" registerForm.errors?.passwordNotMatch && regForm.confirmpassword.touched">
+                                            Password must be same
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input id="streetAdress" class="form-control" formControlName="dummyAdrress" placeholder="Address" [ngClass]="{ 'is-invalid': submitted && regForm.streetAdress.errors }" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleNewAddressChange($event)">
+                                        <div *ngIf="submitted && regForm.streetAdress.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm.streetAdress.errors.required">select nearby loaction from dropdown</div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input id="address2" class="form-control" placeholder="Street Address(optional)" formControlName="address2" [ngClass]="{ 'is-invalid': submitted && regForm.address2.errors }">
+                                        <div *ngIf="submitted && regForm.address2.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm.address2.errors.required">this field is required</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <input id="country" class="form-control" placeholder="Country" formControlName="country" [ngClass]="{ 'is-invalid': submitted && regForm.country.errors }">
+                                        <div *ngIf="submitted && regForm.country.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm.country.errors.required">this field is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input id="state" class="form-control" placeholder="State" formControlName="state" [ngClass]="{ 'is-invalid': submitted && regForm.state.errors }">
+                                        <div *ngIf="submitted && regForm.state.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm.state.errors.required">this field is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input id="city" class="form-control" placeholder="City" formControlName="city" [ngClass]="{ 'is-invalid': submitted && regForm.city.errors }">
+                                        <div *ngIf="submitted && regForm.city.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm.city.errors.required">this field is required</div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group col-md-6">
+                                        <input id="postalCode" class="form-control" type="text" placeholder="Postal Code" formControlName="postalCode" [ngClass]="{ 'is-invalid': submitted && regForm.postalCode.errors }">
+                                        <div *ngIf="submitted && regForm.postalCode.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm.postalCode.errors.required">this field is required</div>
+                                            <div *ngIf="regForm.postalCode.errors.pattern">Invalid postal code</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <button mat-button matStepperNext class="btn btn-common mt-3" (click)="formCheck(registerForm,stepper)">Next</button>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step [stepControl]="registerForm2" [editable]="isEditable">
+                            <form [formGroup]="registerForm2">
+                                <ng-template matStepLabel>Who do we talk to</ng-template>
+                                <div class="login-box-head">
+                                    <h1>BRYSKIT</h1>
+                                    <div class="title-login">Get Started For Free</div>
+                                </div>
+                                <label class="label-dark">Who do we talk to </label>
+                                <div class="row">
+
+                                    <div class="form-group col-md-6">
+                                        <input id="firstContactPerson" class="form-control" placeholder="Main Contact Person" formControlName="firstContactPerson" [ngClass]="{ 'is-invalid': submitted && regForm2.firstContactPerson.errors }">
+                                        <div *ngIf="submitted && regForm2.firstContactPerson.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm2.firstContactPerson.errors.required">this field is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input id="firstRole" class="form-control" placeholder="Role" formControlName="firstRole" [ngClass]="{ 'is-invalid': submitted && regForm2.firstRole.errors }">
+                                        <div *ngIf="submitted && regForm2.firstRole.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm2.firstRole.errors.required">this field is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input id="firstContactEmail" type="email" class="form-control" placeholder="Email" formControlName="firstContactEmail" required [ngClass]="{ 'is-invalid': submitted && regForm2.firstContactEmail.errors }">
+                                        <div *ngIf="submitted && regForm2.firstContactEmail.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm2.firstContactEmail.errors.required">this field is required</div>
+                                            <div *ngIf="regForm2.firstContactEmail.errors.pattern">Email must be a valid email address</div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group col-md-6">
+                                        <input id="firstContactPhone" type="number" class="form-control" placeholder="Contact number" formControlName="firstContactPhone" [ngClass]="{ 'is-invalid': submitted && regForm2.firstContactPhone.errors }">
+                                        <div *ngIf="submitted && regForm2.firstContactPhone.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm2.firstContactPhone.errors.required">this field is required</div>
+                                        </div>
+                                    </div> -->
+                                    <div class="form-group col-md-6">
+                                        <input id="firstContactPhone" class="form-control" type="number" placeholder="Contact number" formControlName="firstContactPhone" [ngClass]="{ 'is-invalid': submitted && regForm2.firstContactPhone.errors }">
+                                        <div *ngIf="submitted && regForm2.firstContactPhone.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm2.firstContactPhone.errors.required">Invalid phone number</div>
+                                            <div *ngIf="regForm2.firstContactPhone.errors.minlength">Minimum lenght should be 6</div>
+                                            <div *ngIf="regForm2.firstContactPhone.errors.maxlength">maxlength lenght should be 10</div>
+                                            <div *ngIf="regForm2.firstContactPhone.errors.pattern">Invalid phone number</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input id="secondContactPerson" class="form-control" placeholder="Secondary Contact Person" formControlName="secondContactPerson" [ngClass]="{ 'is-invalid': submitted && regForm2.secondContactPerson.errors }">
+                                        <div *ngIf="submitted && regForm2.secondContactPerson.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm2.secondContactPerson.errors.required">this field is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input id="secondaryRole" class="form-control" placeholder="Role" formControlName="secondaryRole" [ngClass]="{ 'is-invalid': submitted && regForm2.secondaryRole.errors }">
+                                        <div *ngIf="submitted && regForm2.secondaryRole.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm2.secondaryRole.errors.required">this field is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input id="secondContactEmail" type="email" class="form-control" placeholder="Email" formControlName="secondContactEmail" [ngClass]="{ 'is-invalid': submitted && regForm2.secondContactEmail.errors }">
+                                        <div *ngIf="submitted && regForm2.secondContactEmail.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm2.secondContactEmail.errors.required">this field is required</div>
+                                            <div *ngIf="regForm2.secondContactEmail.errors.pattern">Email must be a valid email address</div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group col-md-6">
+                                        <input id="secondContactPhone" class="form-control" type="number" placeholder="Contact number" formControlName="secondContactPhone" [ngClass]="{ 'is-invalid': submitted && regForm2.secondContactPhone.errors }">
+                                        <div *ngIf="submitted && regForm2.secondContactPhone.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm2.secondContactPhone.errors.required">this field is required</div>
+                                        </div>
+                                    </div> -->
+                                    <div class="form-group col-md-6">
+                                        <input id="secondContactPhone" class="form-control" type="number" placeholder="Contact number" formControlName="secondContactPhone" [ngClass]="{ 'is-invalid': submitted && regForm2.secondContactPhone.errors }">
+                                        <div *ngIf="submitted && regForm2.secondContactPhone.errors" class="invalid-feedback">
+                                            <div *ngIf="regForm2.secondContactPhone.errors.required">Invalid phone number</div>
+                                            <div *ngIf="regForm2.secondContactPhone.errors.minlength">Minimum lenght should be 6</div>
+                                            <div *ngIf="regForm2.secondContactPhone.errors.maxlength">maxlength lenght should be 10</div>
+                                            <div *ngIf="regForm2.secondContactPhone.errors.pattern">Invalid phone number</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between mt-3">
+
+                                    <button mat-button matStepperNext class="btn btn-common" (click)="formCheck(registerForm2)">Next</button>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step [stepControl]="registerForm" [editable]="isEditable">
+                            <form [formGroup]="registerForm">
+                                <ng-template matStepLabel>Deliveries Info</ng-template>
+                                <div class="login-box-head">
+                                    <h1>BRYSKIT</h1>
+                                    <div class="title-login">Get Start For Free</div>
+
+                                </div>
+                                <div class="row">
+                                    <label class="label-dark">Tell us about your Deliveries</label>
+
+                                    <div class="form-group col-md-12">
+                                        <label class="login-label d-block">In general, What kind of items will you be delivering regularly?</label>
+                                        <label class="ck-box" *ngFor="let item of itemType"><input type="checkbox" (change)="onChangeType(item._id, $event.target.checked)"  id="id{{item._id}}"><span>{{item.itemName}}</span></label>
+
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="login-label d-block">How heavy will your items be?</label>
+                                        <label class="ck-box" *ngFor="let item of itemWeight.data"><input type="checkbox" (change)="onChangeWeight(item._id, $event.target.checked)"  id="{{item._id}}"><span>{{item.itemWeight}}</span></label>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between mt-3">
+                                    <!-- <button mat-button matStepperPrevious class="btn btn-common">Back</button> -->
+                                    <button mat-button class="btn btn-common" [hidden]="loading" (click)="onSubmit(stepper)">Register</button>
+                                    <div class="lds-facebook loction" [hidden]="!loading">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step [editable]="!isEditable">
+                            <ng-template matStepLabel>Payment Information</ng-template>
+                            <div class="login-box-head">
+                                <h1>BRYSKIT</h1>
+                                <div class="title-login">Enter your payment information</div>
+                            </div>
+                            <app-payment-gate [data]="data"></app-payment-gate>
+                            <div class="login-box-link text-center">
+                                <a class="label-dark mt-3" matStepperNext style="cursor: pointer;">Skip</a>
+                            </div>
+
+                        </mat-step>
+                    </mat-horizontal-stepper>
+
+                </div>
+                <div class="card-footer card-footer-cstm">
+                    <p class="text-center modal-bottom-line text-white">Already have an account? <a routerLink="../login" style="color: #fff ;text-decoration: underline;"> Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+.btn-2 {
+    background: #6c757d !important;
+}
+
+button {
+    outline: none;
+}
+
+image-cropper {
+    height: 50vh;
+}
+
+.btn-common {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.text-danger {
+    color: red($color: #000000);
+    font-size: 12px;
+}
+
+.form-wrap input {
+    padding-bottom: 10px;
+}
+
+button.card-link {
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+}
+
+.modal-wrapper {
+    padding-right: 0 !important;
+    .modal-dialog {
+        max-width: 600px;
+        .modal-content {
+            .modal-header {
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                padding-top: 25px;
+                padding-bottom: 25px;
+                button.close {
+                    padding: 0;
+                    margin: 0;
+                    background: #fff;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    position: absolute;
+                    right: -15px;
+                    top: -12px;
+                    outline: none;
+                }
+            }
+            .modal-body {
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+                padding-bottom: 30px;
+                padding-top: 30px;
+                .modal-footer {
+                    border-top: 0;
+                    justify-content: flex-start;
+                    padding-left: 0;
+                    margin-top: 10px;
+                    .btn-common {
+                        border-color: transparent;
+                        padding: 0.7rem 1.5rem
+                    }
+                }
+            }
+        }
+    }
+}
+
+.adress-book-text span {
+    position: relative;
+    margin-right: 5px;
+    padding-right: 7px;
+    display: inline-block;
+    &:after {
+        position: absolute;
+        content: ",";
+        right: 2px;
+    }
+}
+
+.adress-book-text span:last-child::after {
+    display: none;
+}
+
+.account-img input.custom-file-input {
+    display: inline;
+}
+
+.account-img label:after {
+    position: absolute;
+    content: "";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}

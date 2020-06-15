@@ -1,0 +1,76 @@
+<div class="container mt-3">
+    <alert></alert>
+    <mat-accordion class="example-headers-align">
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Payment Method
+                </mat-panel-title>
+                <mat-panel-description>
+                    Update your payment information
+                    <i class="fas fa-credit-card" style="font-size: 18px;"></i>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div class="card card-new">
+                <div class="login-box-head">
+                    <!-- <h1>BRYSKIT</h1> -->
+                    <!-- <div class="title-login">Enter your payment information</div> -->
+                </div>
+                <app-payment-gate [data]="data"></app-payment-gate>
+                <div class="login-box-link text-center">
+                    <!-- <a class="label-dark mt-3" routerLink="../login">Skip</a> -->
+                </div>
+            </div>
+            <!-- <mat-action-row>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row> -->
+        </mat-expansion-panel>
+
+        <!-- <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Destination
+          </mat-panel-title>
+          <mat-panel-description>
+            Type the country name
+            <mat-icon>map</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field>
+          <mat-label>Country</mat-label>
+          <input matInput>
+        </mat-form-field>
+
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel> -->
+
+        <!-- <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Day of the trip
+          </mat-panel-title>
+          <mat-panel-description>
+            Inform the date you wish to travel
+            <mat-icon>date_range</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
+        </mat-form-field>
+        <mat-datepicker #picker></mat-datepicker>
+
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" (click)="nextStep()">End</button>
+        </mat-action-row>
+      </mat-expansion-panel> -->
+
+    </mat-accordion>
+</div>

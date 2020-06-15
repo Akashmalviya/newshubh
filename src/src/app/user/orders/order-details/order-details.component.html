@@ -1,0 +1,240 @@
+<div class="content-header">
+
+    <div class="c-head-left" *ngIf="!invoices"> <a style="text-decoration: none;" routerLink="/user/orders">My Orders</a> > order details</div>
+    <div class="c-head-left" *ngIf="invoices"> <a style="text-decoration: none;" routerLink="/user/invoices">Invoices</a> > order details</div>
+
+    <div class="c-head-left">
+
+    </div>
+</div>
+
+
+<div class="row gutter-10 orderDiv-Current ">
+    <div class="col-12">
+        <div class="vcard">
+            <!-- <div class="vcard-head pb-1">
+                <h3></h3>
+                <div class="vcard-head-right">
+
+                </div>
+            </div> -->
+            <div class="row px-3 gutter-10 pt-4">
+
+                <!-- <div class="col-md col-6">
+                    <div class="adress-book-text ab-text-big">
+                        <label>Order Number :</label> 5248963117
+                    </div>
+                </div> -->
+                <div class="col-md col-6">
+                    <div class="adress-book-text ab-text-big">
+                        <label>Order Place Date :</label> {{orderData.orderDate | date : 'medium'}}
+                    </div>
+                </div>
+                <div class="col-md col-6" *ngIf="orderData.paymentStatus">
+                    <div class="adress-book-text ab-text-big" *ngIf="orderData.creditDeduction">
+                        <label>Payment Status :</label> Paid from credit amount $ {{orderData.creditAmount}}
+                    </div>
+                    <div class="adress-book-text ab-text-big" *ngIf="!orderData.creditDeduction">
+                        <label>Payment Status :</label> Paid
+                    </div>
+                </div>
+                <!-- <div class="col-md col-6">
+                  <div class="adress-book-text ab-text-big">
+                      <label>Order Deliver Date :</label> 30 Nov 2019
+                  </div>
+              </div> -->
+                <div class="col-md col-6">
+                    <div class="adress-book-text ab-text-big">
+                        <label>Total Amount : </label> ${{orderData.orderEstimatedCharge}}
+                    </div>
+                </div>
+                <div class="col-md col-6" *ngIf="orderData.orderReturnDate != null">
+                    <div class="adress-book-text ab-text-big">
+                        <label>Return On : </label> {{orderData.orderReturnDate | date : 'medium'}}
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="adress-book-text ab-text-big">
+                        <label>Status : </label> {{orderData.orderStatus}}
+                    </div>
+                </div>
+
+            </div>
+            <div class="vcard-body">
+                <div class="title-head mb-3">
+                    <div class="title-head-left">Pick Up Location</div>
+                </div>
+                <div class="row px-3 gutter-10">
+
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="adress-book-text">
+                            <label class="d-inline">Company Name : </label> {{orderData.picupCompanyName}}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="adress-book-text">
+                            <label class="d-inline">Contact Person Name : </label> {{orderData.picupContactPersonName}}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="adress-book-text">
+                            <label class="d-inline">Business Main Number : </label> {{orderData.picupBusinessMainNumber}}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="adress-book-text">
+                            <label class="d-inline">Mob. Number : </label> {{orderData.picupMobileNumber}}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="adress-book-text">
+                            <label class="d-inline">Email : </label> {{orderData.picupEmail}}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="adress-book-text">
+                            <label class="d-inline">Address : </label> {{orderData.picupStreetAddress}}
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-12 col-sm-12" *ngIf="orderData.picupRemark != ''">
+                        <div class=" adress-book-text" *ngIf="orderData.picupRemark != null">
+                            <label class="d-inline ">Remark : </label> {{orderData.picupRemark}}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="title-head mb-3 mt-2 ">
+                    <div class="title-head-left ">Drop Location</div>
+                </div>
+                <div class="row px-3 gutter-10 ">
+
+                    <div class="col-xl-3 col-lg-4 col-sm-6 ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">Company Name : </label> {{orderData.dropupCompanyName}}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6 ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">Contact Person Name  : </label> {{orderData.dropupContactPersonName}}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6 ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">Business Main Number : </label> {{orderData.dropupBusinessMainNumber}}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6 ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">Mob. Number : </label> {{orderData.dropupMobileNumber}}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6 ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">Street Add : </label> {{orderData.dropupStreetAddress}}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6 " *ngIf="orderData.dropupAddress2 !='' ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">Add 1 :</label> {{orderData.dropupAddress2 }}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6 ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">City : </label> {{orderData.dropupCity}}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6 ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">State :</label> {{orderData.dropupState}}
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-4 col-sm-6 ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">Postal Code : </label> {{orderData.dropupPostalCode}}
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-sm-12 " *ngIf="orderData.internalComments !='' ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">Internal Comment : </label> {{orderData.internalComments | titlecase}}
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-sm-12 " *ngIf="orderData.driverInstruction !='' ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">Driver Instruction : </label> {{orderData.driverInstruction | titlecase}}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="title-head mb-3 mt-2 ">
+                    <div class="title-head-left ">Package </div>
+                </div>
+                <div class="row px-3 gutter-10 ">
+
+                    <div class="col-xl-3 col-lg-4 col-sm-6 ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">Number of Items :  </label> {{orderData.regularSized}}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6 ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">Number of Over Sized Items :  </label> {{orderData.overSized}}
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6 ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">Reference Number : </label> {{orderData.referenceNumber}}
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- <div class="title-head mb-3 mt-2 ">
+                    <div class="title-head-left ">Vehicle Type</div>
+                </div> -->
+                <!-- <div class="row px-3 gutter-10 ">
+
+                    <div class="col-xl-3 col-lg-4 col-sm-6 ">
+                        <div class="adress-book-text ">
+                            <label class="d-inline ">Number of Items :   </label> Car
+                        </div>
+                    </div>
+
+                </div> -->
+
+                <div class="title-head mb-3 mt-2" *ngIf="invoices">
+                    <div class="title-head-left ">Drop Package Information</div>
+                </div>
+                <div *ngIf="invoices">
+                    <div *ngFor="let item of concern" class="row px-3 gutter-10 ">
+                        <div class="col-xl-3 col-lg-4 col-sm-6 " *ngIf="item.concernStatus === 'delivered'">
+                            <div class="adress-book-text ">
+                                <label class="d-inline ">Signature : </label> <br>
+                                <img [src]="item.signature" alt="" srcset="" height="100px" width="100px">
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-sm-6 " *ngIf="item.concernStatus === 'delivered'">
+                            <div class="adress-book-text ">
+                                <label class="d-inline ">Received By : </label> {{item.receivedFrom}}
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-sm-6 " *ngIf="item.concernStatus === 'delivered'">
+                            <div class="adress-book-text ">
+                                <label class="d-inline ">Time Stamp : </label> {{orderData.orderdeliveredDate | date : 'medium'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- <div class="mt-4 bottom-form-btns ">
+            <button class="btn btn-lg btn-common " onclick="showAlertModal( 'Request Submitted Successfully') ">REPEAT THIS ORDER</button>
+        </div> -->
+
+    </div>
+</div>

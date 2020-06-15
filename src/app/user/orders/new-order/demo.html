@@ -1,0 +1,398 @@
+<div class="content-header">
+    <div class="c-head-left">my orders</div>
+    <div class="c-head-left">
+
+    </div>
+</div>
+
+<div class="row gutter-10 orderDiv-Current">
+    <div class="col-12">
+        <div class="vcard">
+            <div class="vcard-head">
+                <h3>Create new delivery</h3>
+                <div class="vcard-head-right">
+
+                </div>
+            </div>
+            <div class="vcard-body">
+                <div class="title-head mb-3">
+                    <div class="title-head-left">Pick Up Location</div>
+                </div>
+                <form [formGroup]="placeOrder">
+                    <div class="form-group">
+                        <label class="ck-box ck-box-radio mr-2 mr-md-5">
+                    <input type="radio" name="address" (change)="onChangeEvent('Default Address')" checked>
+                    <span>Default Address</span>
+                </label>
+                        <label class="ck-box ck-box-radio mr-2 mr-md-5">
+                    <input type="radio" name="address" (change)="onChangeEvent('newadreess')" >
+                    <span>New Address</span>
+                </label>
+
+                    </div>
+                    <div class="row gutter-10 mt-4">
+
+                        <div class="col-md-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Company Name</label>
+                                <input type="text" class="form-control" formControlName="picupCompanyName" [readonly]="readOnly">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Contact Person Name</label>
+                                <input type="text" class="form-control" formControlName="picupContactPersonName" [readonly]="readOnly">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Business Main Number</label>
+                                <input type="text" class="form-control" formControlName="picupBusinessMainNumber" [readonly]="readOnly">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Mob. Number</label>
+                                <input type="text" class="form-control" formControlName="picupMobileNumber" [readonly]="readOnly">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Email</label>
+                                <input type="text" class="form-control" formControlName="picupEmail" [readonly]="readOnly">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Address</label>
+                                <input type="text" class="form-control" formControlName="picupAddress" [readonly]="readOnly">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group animate-lable focused">
+                                <label>Remark(optional)</label>
+                                <textarea class="form-control" rows="3" formControlName="picupRemark">
+                                 </textarea>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+
+                <mat-accordion>
+                    <mat-expansion-panel expanded="true" *ngFor="let item of items ;let i = index">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Trip Request {{i + 1}}
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Drop Address for trip {{i + 1}}
+                            </mat-panel-description>
+
+                        </mat-expansion-panel-header>
+                        <a *ngIf="items?.length > 1" (click)="removeAddress(i)" class="card-link no-underline " href="javascript:void(0);"><span class="icon-delete location" data-toggle="tooltip" title="" data-original-title="Delete"></span></a>
+
+                        <mat-tab-group [(selectedIndex)]="orderStatus">
+
+                            <mat-tab label="Destination 1">
+                                <form [formGroup]="placeOrder">
+
+                                    <div class="row gutter-10 mt-4">
+                                        <!-- <div class="col-12">
+                                      <label class="mb-3 font-w-500">Destination 2</label>
+                                  </div> -->
+                                        <div class="col-lg-12">
+                                            <div class="form-group with-left-icon animate-lable focused">
+                                                <i class="fa fa-search left-icon"></i>
+                                                <label>Search</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="form-group animate-lable focused">
+                                                <label>Company Name</label>
+                                                <input type="text" formControlName="dropupCompanyName" class="form-control" value="Maven Cluster" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.dropupCompanyName.errors }">
+                                                <div *ngIf="submitted && placeOrdForm.dropupCompanyName.errors" class="invalid-feedback">
+                                                    <div *ngIf="placeOrdForm.dropupCompanyName.errors.required">this field is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="form-group with-right-icon animate-lable focused">
+                                                <label>Street Address</label>
+                                                <span class="icon-edit right-icon"></span>
+                                                <input type="text" formControlName="dropupStreetAddress" class="form-control" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.dropupStreetAddress.errors }">
+                                                <div *ngIf="submitted && placeOrdForm.dropupStreetAddress.errors" class="invalid-feedback">
+                                                    <div *ngIf="placeOrdForm.dropupStreetAddress.errors.required">this field is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="form-group with-right-icon animate-lable focused">
+                                                <label>Address 2</label>
+                                                <span class="icon-edit right-icon"></span>
+                                                <input type="text" formControlName="dropupAddress2" class="form-control" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.dropupAddress2.errors }">
+                                                <div *ngIf="submitted && placeOrdForm.dropupAddress2.errors" class="invalid-feedback">
+                                                    <div *ngIf="placeOrdForm.dropupAddress2.errors.required">this field is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="form-group animate-lable focused">
+                                                <label>City</label>
+                                                <input type="text" formControlName="dropupCity" class="form-control" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.dropupCity.errors }">
+                                                <div *ngIf="submitted && placeOrdForm.dropupCity.errors" class="invalid-feedback">
+                                                    <div *ngIf="placeOrdForm.dropupCity.errors.required">this field is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="form-group animate-lable focused">
+                                                <label>State</label>
+                                                <input type="text" formControlName="dropupState" class="form-control" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.dropupState.errors }">
+                                                <div *ngIf="submitted && placeOrdForm.dropupState.errors" class="invalid-feedback">
+                                                    <div *ngIf="placeOrdForm.dropupState.errors.required">this field is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="form-group animate-lable focused">
+                                                <label>Postal Code</label>
+                                                <input type="text" formControlName="dropupPostalCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.dropupPostalCode.errors }">
+                                                <div *ngIf="submitted && placeOrdForm.dropupPostalCode.errors" class="invalid-feedback">
+                                                    <div *ngIf="placeOrdForm.dropupPostalCode.errors.required">this field is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label class="ck-box">
+                                            <input type="checkbox"  name="">
+                                            <span>Save Address</span>
+                                          </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group animate-lable">
+                                                <label>Internal Comments(optional)</label>
+                                                <textarea formControlName="internalComments" class="form-control" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group animate-lable">
+                                                <label>Driver Instructions(optional)</label>
+                                                <textarea formControlName="driverInstruction" class="form-control" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 pt-2">
+                                            <label class="mb-3 font-w-500">Package 2</label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label class="font-size-14">Regular Sized</label>
+                                            <div class="form-group animate-lable focused">
+                                                <label>No. of Items</label>
+                                                <input type="number" formControlName="regularSized" class="form-control" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.regularSized.errors }">
+                                                <div *ngIf="submitted && placeOrdForm.regularSized.errors" class="invalid-feedback">
+                                                    <div *ngIf="placeOrdForm.regularSized.errors.required">this field is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label class="font-size-14">Over Sized</label>
+                                            <div class="form-group animate-lable focused">
+                                                <label>No. of Items</label>
+                                                <input type="number" formControlName="overSized" class="form-control" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.overSized.errors }">
+                                                <div *ngIf="submitted && placeOrdForm.overSized.errors" class="invalid-feedback">
+                                                    <div *ngIf="placeOrdForm.overSized.errors.required">this field is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group animate-lable">
+                                                <label>Reference No.</label>
+                                                <input type="text" formControlName="referenceNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.referenceNumber.errors }">
+                                                <div *ngIf="submitted && placeOrdForm.referenceNumber.errors" class="invalid-feedback">
+                                                    <div *ngIf="placeOrdForm.referenceNumber.errors.required">this field is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </mat-tab>
+                            <!-- <mat-tab label="Place Schedule Order">
+                          <form [formGroup]="placeOrder">
+                              <div class="row gutter-10 mt-4">
+                                  <div class="col-lg-12">
+                                      <div class="form-group with-left-icon animate-lable focused">
+                                          <i class="fa fa-search left-icon"></i>
+                                          <label>Search</label>
+                                          <input type="text"  class="form-control">
+                                      </div>
+                                  </div>
+                                  <div class="col-xs-12 col-12 col-md-4 form-group animate-lable focused">
+                                      <label>Order Date</label>
+                                      <input type="text"
+                                      formControlName="orderDate"
+                                             class="form-control"
+                                             bsDatepicker  [minDate]="minDate">
+                                    </div>
+                                  <div class="col-lg-4 col-sm-6">
+                                      <div class="form-group animate-lable focused">
+                                          <label>Company Name</label>
+                                          <input type="text" formControlName="dropupCompanyName" class="form-control">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-4 col-sm-6">
+                                      <div class="form-group with-right-icon animate-lable focused">
+                                          <label>Street Address</label>
+                                          <span class="icon-edit right-icon"></span>
+                                          <input type="text" formControlName="dropupStreetAddress" class="form-control">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-4 col-sm-6">
+                                      <div class="form-group with-right-icon animate-lable focused">
+                                          <label>Address 2</label>
+                                          <span class="icon-edit right-icon"></span>
+                                          <input type="text" formControlName="dropupAddress2" class="form-control">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-4 col-sm-6">
+                                      <div class="form-group animate-lable focused">
+                                          <label>City</label>
+                                          <input type="text"formControlName="dropupCity"  class="form-control">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-4 col-sm-6">
+                                      <div class="form-group animate-lable focused">
+                                          <label>State</label>
+                                          <input type="text" formControlName="dropupState" class="form-control">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-4 col-sm-6">
+                                      <div class="form-group animate-lable focused">
+                                          <label>Postal Code</label>
+                                          <input type="text" formControlName="dropupPostalCode" class="form-control">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-12">
+                                      <div class="form-group">
+                                          <label class="ck-box">
+                                            <input type="checkbox"  name="">
+                                            <span>Save Address</span>
+                                          </label>
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                      <div class="form-group animate-lable">
+                                          <label>Internal Comments(optional)</label>
+                                          <textarea class="form-control" formControlName="internalComments" rows="3"></textarea>
+                                      </div>
+                                  </div>
+                                   <div class="col-lg-6">
+                                      <div class="form-group animate-lable">
+                                          <label>Driver Instructions(optional)</label>
+                                          <textarea class="form-control" formControlName="driverInstruction" rows="3"></textarea>
+                                      </div>
+                                  </div>
+                                  <div class="col-12 pt-2">
+                                      <label class="mb-3 font-w-500">Package 2</label>
+                                  </div>
+                                  <div class="col-lg-6">
+                                      <label class="font-size-14">Regular Sized</label>
+                                      <div class="form-group animate-lable focused">
+                                          <label>No. of Items</label>
+                                          <input type="number" formControlName="regularSized" class="form-control">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                      <label class="font-size-14">Over Sized</label>
+                                      <div class="form-group animate-lable focused">
+                                          <label>No. of Items</label>
+                                          <input type="number" formControlName="overSized" class="form-control">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-12">
+                                      <div class="form-group animate-lable">
+                                           <label>Reference No.</label>
+                                          <input type="text" formControlName="referenceNumber" class="form-control">
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </form>
+
+                      </mat-tab> -->
+                        </mat-tab-group>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <div class="mt-4 bottom-form-btns">
+                    <button class="btn btn-lg btn-common btn-common-dark" *ngIf="hideButton" (click)="addAddress()">ADD NEW DESTINATION</button> &nbsp;
+                    <button class="btn btn-lg btn-common mr-sm-2" data-toggle="modal" data-target="#cost_modal" (click)=placeOrderType(schedule!)>SUBMIT REQUEST</button>
+                </div>
+
+                <!-- <form class="common-form px-15"> -->
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="cost_modal" tabindex="-1" role="dialog" aria-labelledby="cost_modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cost of Delivery</h5>
+            </div>
+            <div class="modal-body p-0">
+                <div class="cost-modal-box">
+                    <div class="cost-modal-head">
+                        <div>Total</div>
+                        <span class="cost-price">$310</span>
+                    </div>
+                    <div class="cost-modal-body">
+                        <div class="row">
+                            <div class="col">Destination 1</div>
+                            <div class="col-auto">$50</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Destination 2</div>
+                            <div class="col-auto">$20</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Destination 3</div>
+                            <div class="col-auto">$150</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Destination 4</div>
+                            <div class="col-auto">$30</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Destination 5</div>
+                            <div class="col-auto">$60</div>
+                        </div>
+                    </div>
+                    <div class="cost-modal-foot">
+                        <div class="row">
+                            <div class="col">Total</div>
+                            <div class="col-auto">$310</div>
+                        </div>
+                    </div>
+                    <div class="cost-modal-btn py-4">
+                        <button class="btn btn-common btn-lg btn-block" type="submit" (click)="onSubmit()" data-dismiss="modal">PLACE ORDER</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

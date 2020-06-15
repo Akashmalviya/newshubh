@@ -1,0 +1,96 @@
+form.checkout {
+    max-width: 500px;
+    margin: 2rem auto;
+    text-align: center;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    padding: 1rem 2rem;
+    background: white;
+    font-family: monospace;
+    color: #525252;
+    font-size: 1.1rem;
+}
+
+#cardInfo {
+    border: 1px solid #e6ebf1;
+    box-shadow: 0 2px 3px 0 #e6ebf1;
+}
+
+form.checkout button {
+    // padding: 0.5rem 1rem;
+    // color: white;
+    // background: #bb1d0a;
+    // border: none;
+    // border-radius: 4px;
+    // margin-top: 1rem;
+}
+
+form.checkout button:active {
+    background: rgb(165, 76, 43);
+}
+
+.name {
+    // line-height: 24px;
+    font-family: monospace;
+    font-size: 19px;
+    // height: 30px;
+    -webkit-font-smoothing: antialiased;
+    background-color: transparent;
+    border: none;
+    display: block;
+    width: 100%;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: -internal-light-dark-color(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    text-align: start;
+    cursor: text;
+    margin: 1rem 0 1rem;
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+}
+
+input:focus {
+    outline: none !important;
+    // border-color: #719ECE;
+    // box-shadow: 0 0 10px #719ECE;
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: purple;
+    opacity: 1;
+    /* Firefox */
+}
+
+.StripeElement {
+    margin: 1rem 0 1rem;
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+    border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+}

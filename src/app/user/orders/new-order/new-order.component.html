@@ -1,0 +1,450 @@
+<div class="content-header">
+    <div class="c-head-left">my orders</div>
+    <div class="c-head-left">
+    </div>
+</div>
+
+
+<div class="row gutter-10 orderDiv-Current">
+    <div class="col-12">
+        <div class="vcard">
+            <div class="vcard-head">
+                <h3>Create new delivery</h3>
+                <div class="vcard-head-right">
+                </div>
+            </div>
+            <div class="vcard-body">
+                <div class="title-head mb-3">
+                    <div class="title-head-left">Pick Up Location</div>
+                </div>
+
+
+
+
+                <form [formGroup]="placeOrder">
+                    <div>
+                        <div class="form-group">
+                            <label class="ck-box ck-box-radio mr-2 mr-md-5">
+                          <input type="radio" name="address" (change)="onChangeEvent('Default Address')" checked>
+                          <span>Default Address</span>
+                      </label>
+                            <label class="ck-box ck-box-radio mr-2 mr-md-5">
+                          <input type="radio" name="address" (change)="onChangeEvent('newaddress')" >
+                          <span>New Address</span>
+                      </label>
+                            <!-- <button mat-button class="text-right" color="warn" *ngIf="type != 'newaddress'" (click)="showDefalutAddress ? showDefalutAddress = false : showDefalutAddress=true">{{showDefalutAddress ? 'Hide Address':'Show Address'}}</button> -->
+
+                        </div>
+                        <div class="row gutter-10 mt-4">
+                            <div class="col-lg-12" *ngIf="type === 'newaddress'">
+                                <!-- <div class="form-group with-left-icon animate-lable focused">
+                                    <i class="fa fa-search left-icon"></i>
+                                    <label>Search</label>
+                                    <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleNewAddressChange($event)">
+                                </div> -->
+                                <div>
+                                    <mat-form-field class="example-full-width" appearance="fill" style="width: 100%;">
+                                        <mat-label><i class="fa fa-search"></i> Search by Location</mat-label>
+                                        <input type="search" matInput placeholder="Search by Location" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleNewAddressChange($event)">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div *ngIf="showDefalutAddress" class="col-md-6">
+                                <div class="form-group animate-lable focused">
+                                    <label>Company Name</label>
+                                    <input type="text" class="form-control" formControlName="picupCompanyName" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.picupCompanyName.errors }" [readonly]="readOnly">
+                                    <div *ngIf="submitted && placeOrdForm.picupCompanyName.errors" class="invalid-feedback">
+                                        <div *ngIf="placeOrdForm.picupCompanyName.errors?.required">this field is required</div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div *ngIf="showDefalutAddress" class="col-md-6">
+                                <div class="form-group animate-lable focused">
+                                    <label>Contact Person Name</label>
+                                    <input type="text" class="form-control" formControlName="picupContactPersonName" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.picupContactPersonName.errors }" [readonly]="readOnly">
+                                    <div *ngIf="submitted && placeOrdForm.picupContactPersonName.errors" class="invalid-feedback">
+                                        <div *ngIf="placeOrdForm.picupContactPersonName.errors.required">this field is required</div>
+                                        <div *ngIf="placeOrdForm.picupContactPersonName.errors.pattern"> Numbers are not allowed in <strong>name field.</strong></div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="showDefalutAddress" class="col-md-6">
+                                <div class="form-group animate-lable focused">
+                                    <label>Contact Number</label>
+                                    <input type="text" class="form-control" formControlName="picupMobileNumber" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.picupMobileNumber.errors }" [readonly]="readOnly">
+                                    <div *ngIf="submitted && placeOrdForm.picupMobileNumber.errors" class="invalid-feedback">
+                                        <div *ngIf="placeOrdForm.picupMobileNumber.errors.required">this field is required</div>
+                                        <div *ngIf="placeOrdForm.picupMobileNumber.errors.minlength">10 minimum number required</div>
+                                        <div *ngIf="placeOrdForm.picupMobileNumber.errors.maxlength">11 maximum number required</div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="showDefalutAddress" class="col-md-6">
+                                <div class="form-group animate-lable focused">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" formControlName="picupEmail" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.picupEmail.errors }" [readonly]="readOnly">
+                                    <div *ngIf="submitted && placeOrdForm.picupEmail.errors" class="invalid-feedback">
+                                        <div *ngIf="placeOrdForm.picupEmail.errors.required">this field is required</div>
+                                        <div *ngIf="placeOrdForm.picupEmail.errors.email">Email must be a valid email address</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="showDefalutAddress" class="col-md-6">
+                                <div class="form-group animate-lable focused">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control" formControlName="picupAddress" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.picupAddress.errors }" [readonly]="readOnly">
+                                    <div *ngIf="submitted && placeOrdForm.picupAddress.errors" class="invalid-feedback">
+                                        <div *ngIf="placeOrdForm.picupAddress.errors.required">this field is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="showDefalutAddress" class="col-md-6">
+                                <div class="form-group animate-lable focused">
+                                    <label>Street Address</label>
+                                    <input type="text" class="form-control" formControlName="picupStreetAddress" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.picupStreetAddress.errors }" [readonly]="readOnly">
+                                    <div *ngIf="submitted && placeOrdForm.picupStreetAddress.errors" class="invalid-feedback">
+                                        <div *ngIf="placeOrdForm.picupStreetAddress.errors.required">this field is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="showDefalutAddress" class="col-md-6">
+                                <div class="form-group animate-lable focused">
+                                    <label>City</label>
+                                    <input type="text" class="form-control" formControlName="picupCity" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.picupCity.errors }" [readonly]="readOnly">
+                                    <div *ngIf="submitted && placeOrdForm.picupCity.errors" class="invalid-feedback">
+                                        <div *ngIf="placeOrdForm.picupCity.errors.required">this field is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="showDefalutAddress" class="col-md-6">
+                                <div class="form-group animate-lable focused">
+                                    <label>State</label>
+                                    <input type="text" class="form-control" formControlName="picupState" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.picupState.errors }" [readonly]="readOnly">
+                                    <div *ngIf="submitted && placeOrdForm.picupState.errors" class="invalid-feedback">
+                                        <div *ngIf="placeOrdForm.picupState.errors.required">this field is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="showDefalutAddress" class="col-md-6">
+                                <div class="form-group animate-lable focused">
+                                    <label>Postal Code</label>
+                                    <input type="text" class="form-control" formControlName="picPostalCode" [ngClass]="{ 'is-invalid': submitted && placeOrdForm.picPostalCode.errors }" [readonly]="readOnly">
+                                    <div *ngIf="submitted && placeOrdForm.picPostalCode.errors" class="invalid-feedback">
+                                        <div *ngIf="placeOrdForm.picPostalCode.errors.required">this field is required</div>
+                                        <div *ngIf="placeOrdForm.picPostalCode.errors.pattern">Invalid postal code</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group animate-lable focused">
+                                    <label>Remark(optional)</label>
+                                    <textarea class="form-control mb-3" rows="3" formControlName="picupRemark">
+                                       </textarea>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </form>
+
+
+
+
+
+                <form [formGroup]="dropOrder">
+
+                    <mat-accordion formArrayName="droploction">
+                        <mat-expansion-panel class="mb-3 mat-acc" expanded="true" *ngFor="let group of addressArray.controls; let i = index;" [formGroupName]="i">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Trip Request {{i + 1}}
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    <!-- ///Drop Address for trip {{i + 1}} -->
+                                </mat-panel-description>
+
+                            </mat-expansion-panel-header>
+                            <a *ngIf="addressArray.controls.length > 1" (click)="removeAddress(i)" class="card-link no-underline mt-4" href="javascript:void(0);"><span class="icon-delete location mt-3" data-toggle="tooltip" title="" data-original-title="Delete"></span></a>
+
+
+                            <div class="row gutter-10 mt-4">
+                                <div class="col-12">
+                                    <label class="mb-3 font-w-500">Destination {{i + 1}}</label>
+                                </div>
+                                <div class="col-lg-12">
+                                    <!-- <div class="form-group with-left-icon animate-lable focused">
+                                        <i class="fa fa-search left-icon"></i>
+                                        <label>Search</label>
+                                        <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event,i)">
+                                    </div> -->
+
+                                    <div>
+                                        <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill">
+                                            <mat-label><i class="fa fa-search"></i> Search by Location</mat-label>
+
+                                            <input type="search" matInput placeholder="Search by Location" [value]="search" aria-label="State" #search1 [matAutocomplete]="auto" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event,i)">
+                                            <mat-autocomplete #auto="matAutocomplete">
+                                                <mat-option *ngFor="let item of AddressBook |filter : search1.value" (click)="addressComplete(item , i)">
+                                                    <small>{{item.dropupCompanyName}}</small> |
+                                                    <small>{{item.dropupStreetAddress}}</small>
+
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="form-group animate-lable focused">
+
+                                        <label>Company Name</label>
+                                        <input type="text" formControlName="dropupCompanyName" #name class="form-control" value="Maven Cluster" [ngClass]="{ 'is-invalid': submitted && group.get('dropupCompanyName').errors }">
+                                        <div *ngIf="submitted && group.get('dropupCompanyName').errors" class="invalid-feedback">
+                                            <div *ngIf=" group.get('dropupCompanyName').errors?.required">this field is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="form-group animate-lable focused">
+
+                                        <label>Cotact Person Name</label>
+                                        <input type="text" formControlName="dropupContactPersonName" #name class="form-control" value="Maven Cluster" [ngClass]="{ 'is-invalid': submitted && group.get('dropupContactPersonName').errors }">
+                                        <div *ngIf="submitted && group.get('dropupContactPersonName').errors" class="invalid-feedback">
+                                            <div *ngIf=" group.get('dropupContactPersonName').errors?.required">this field is required</div>
+                                            <div *ngIf="addressArray.controls[i].get('dropupContactPersonName').errors?.pattern">Numbers are not allowed in name field.</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="form-group with-right-icon animate-lable focused">
+                                        <label>Street Address</label>
+                                        <span class="icon-edit right-icon"></span>
+                                        <input type="text" readonly formControlName="dropupStreetAddress" #dropupStreetAddress class="form-control" [ngClass]="{ 'is-invalid': submitted && addressArray.controls[i].get('dropupStreetAddress').errors }">
+                                        <div *ngIf="submitted && addressArray.controls[i].get('dropupStreetAddress').errors " class="invalid-feedback">
+                                            <div *ngIf="addressArray.controls[i].get('dropupStreetAddress').errors?.required">this field is required</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="form-group with-right-icon animate-lable focused">
+                                        <label>Address 2</label>
+                                        <span class="icon-edit right-icon"></span>
+                                        <input type="text" formControlName="dropupAddress2" class="form-control" [ngClass]="{ 'is-invalid': submitted && addressArray.controls[i].get('dropupAddress2').errors }">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="form-group with-right-icon animate-lable focused">
+                                        <label>Contact Number</label>
+                                        <input type="text" formControlName="dropupMobileNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && addressArray.controls[i].get('dropupMobileNumber').errors }">
+                                        <div *ngIf="submitted &&addressArray.controls[i].get('dropupMobileNumber').errors" class="invalid-feedback">
+                                            <div *ngIf="addressArray.controls[i].get('dropupMobileNumber').errors?.required">this field is required</div>
+                                            <div *ngIf="addressArray.controls[i].get('dropupMobileNumber').errors?.pattern">Invalid Number</div>
+                                            <div *ngIf="addressArray.controls[i].get('dropupMobileNumber').errors?.maxlength">Invalid Number</div>
+                                            <div *ngIf="addressArray.controls[i].get('dropupMobileNumber').errors?.minlength">Invalid Number</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="form-group animate-lable focused">
+                                        <label>City</label>
+                                        <input type="text" formControlName="dropupCity" #dropupCity class="form-control" [ngClass]="{ 'is-invalid': submitted && addressArray.controls[i].get('dropupCity').errors }">
+                                        <div *ngIf="submitted && addressArray.controls[i].get('dropupCity').errors" class="invalid-feedback">
+                                            <div *ngIf="addressArray.controls[i].get('dropupCity').errors.required">this field is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="form-group animate-lable focused">
+                                        <label>State</label>
+                                        <input type="text" formControlName="dropupState" #dropupState class="form-control" [ngClass]="{ 'is-invalid': submitted && addressArray.controls[i].get('dropupState').errors }">
+                                        <div *ngIf="submitted && addressArray.controls[i].get('dropupState').errors" class="invalid-feedback">
+                                            <div *ngIf="addressArray.controls[i].get('dropupState').errors?.required">this field is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="form-group animate-lable focused">
+                                        <label>Postal Code</label>
+                                        <input type="text" formControlName="dropupPostalCode" #dropupPostalCode class="form-control" min="1" [ngClass]="{ 'is-invalid': submitted && addressArray.controls[i].get('dropupPostalCode').errors }">
+                                        <div *ngIf="submitted && addressArray.controls[i].get('dropupPostalCode').errors" class="invalid-feedback">
+                                            <div *ngIf="addressArray.controls[i].get('dropupPostalCode').errors?.required">this field is required</div>
+                                            <div *ngIf="addressArray.controls[i].get('dropupPostalCode').errors?.pattern">Invalid postal code</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="name.value && dropupPostalCode.value && dropupState.value && dropupCity.value && dropupStreetAddress.value != ''" class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="ck-box">
+                                    <input type="checkbox" (change)="FieldsChange($event,i)" value="1" name="">
+                                    <span>Save Address</span>
+                                  </label>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group animate-lable">
+                                        <label>Internal Comments(optional)</label>
+                                        <textarea formControlName="internalComments" class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group animate-lable">
+                                        <label>Driver Instructions(optional)</label>
+                                        <textarea formControlName="driverInstruction" class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <label class="mb-3 font-w-500">Package 2</label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="font-size-14">Regular Sized</label>
+                                    <div class="form-group animate-lable focused">
+                                        <label>No. of Items</label>
+                                        <input type="number" formControlName="regularSized" min="1" class="form-control" [ngClass]="{ 'is-invalid': submitted && addressArray.controls[i].get('regularSized').errors }">
+                                        <div *ngIf="submitted && addressArray.controls[i].get('regularSized').errors" class="invalid-feedback">
+                                            <div *ngIf="addressArray.controls[i].get('regularSized').errors?.required">this field is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="font-size-14">Over Sized</label>
+                                    <div class="form-group animate-lable focused">
+                                        <label>No. of Items</label>
+                                        <input type="number" formControlName="overSized" min="1" class="form-control" [ngClass]="{ 'is-invalid': submitted && addressArray.controls[i].get('overSized').errors }">
+                                        <div *ngIf="submitted && addressArray.controls[i].get('overSized').errors" class="invalid-feedback">
+                                            <div *ngIf="group.get('overSized').errors?.required">this field is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="pb-2" style="  color:red;
+                                  font-size: 12px;" *ngIf=" group.errors?.passValue && (addressArray.controls[i].get('overSized').touched ||addressArray.controls[i].get('regularSized').touched)">
+                                        Order size can not exceeds more then 80 (Hint: 5 Regular Size = 1 Over Size)
+                                    </div>
+                                    <div class="pb-2" style="  color:red;
+                                    font-size: 12px;" *ngIf=" group.errors?.checkValue && submitted">
+                                        Order capacity must be at least 1.
+                                    </div>
+                                    <div class="form-group animate-lable">
+                                        <label>Reference No.</label>
+                                        <input type="text" formControlName="referenceNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && addressArray.controls[i].get('referenceNumber').errors }">
+                                        <div *ngIf="submitted && addressArray.controls[i].get('referenceNumber').errors" class="invalid-feedback">
+                                            <div *ngIf="addressArray.controls[i].get('referenceNumber').errors?.required">this field is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </form>
+                <div class="mt-4 bottom-form-btns">
+                    <button class="btn btn-lg btn-common btn-common-dark" [hidden]="addressArray.controls.length == 5" (click)="addAddress()">ADD NEW DESTINATION</button> &nbsp;
+                    <button class="btn btn-lg btn-common mr-sm-2" (click)="placeOrderType()">SUBMIT REQUEST</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="cost_modal" tabindex="-1" role="dialog" aria-labelledby="cost_modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cost of Delivery</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="cost-modal-box">
+                    <div [hidden]=loading>
+                        <div class="cost-modal-head">
+                            <div>Total</div>
+                            <span class="cost-price">${{fare.totalCharge}}</span>
+                        </div>
+                        <div class="cost-modal-body" *ngFor="let item of fare.listOfEstimationCharge; let i = index">
+                            <div class="row">
+                                <div class="col">Destination {{i + 1}}</div>
+                                <div class="col-auto">${{item}}</div>
+                            </div>
+
+                        </div>
+                        <div class="cost-modal-foot">
+                            <div class="row">
+                                <div class="col">Total</div>
+                                <div class="col-auto">${{fare.totalCharge}}</div>
+                            </div>
+                        </div>
+                        <div class="cost-modal-btn py-4">
+                            <button class="btn btn-common btn-lg btn-block" type="submit" (click)="onSubmit()" data-dismiss="modal">PLACE ORDER</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="lds-facebook loction" [hidden]="!loading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- modal payment -->
+<!-- <div class="modal fade" id="payment_modal" tabindex="-1" role="dialog" aria-labelledby="cost_modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Please update payment details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <button href="#" class="sbm-link" routerLink="/user/payment-steps"> View </button>
+
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="modal fade" id="payment_modal" tabindex="-1" role="dialog" aria-labelledby="cost_modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header rounded-0">
+                <h5 class="modal-title" id="paymentLabel">Payment details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <p [hidden]="dataflag == '1'">Please update the payment details</p>
+                <p *ngIf="dataflag == '1'">Your payment details successfully updated</p>
+                <app-payment-gate (flag)="dataflag=$event" [data]="{flag : 2}" [hidden]="dataflag == '1'"></app-payment-gate>
+                <div class="modal-footer justify-content-center border-0">
+                    <button *ngIf="dataflag == '1'" type="button" class="btn btn-common" style="background-color: #28a745;" (click)="cardInfo()" data-dismiss="modal">Create Order</button>
+                    <button type="button" class="btn btn-common" data-dismiss="modal" onclick="showAlertModal('order has been discarded')" routerLink="/user/dashboard">Cancel Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

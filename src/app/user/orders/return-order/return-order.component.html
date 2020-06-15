@@ -1,0 +1,209 @@
+<div class="content-header">
+
+    <div class="c-head-left"> <a style="text-decoration: none;" routerLink="/user/orders">My Orders</a> > Return order</div>
+    <div class="c-head-left">
+
+    </div>
+</div>
+
+
+<div class="row gutter-10 orderDiv-Current">
+    <alert></alert>
+    <div class="col-12">
+        <div class="vcard">
+            <div class="vcard-head">
+
+                <h3>Return Request</h3>
+                <div class="vcard-head-right">
+
+                </div>
+            </div>
+            <div class="vcard-body">
+                <div class="title-head mb-3">
+                    <div class="title-head-left">Reason</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-common dropdown-toggle" data-toggle="dropdown">
+                      {{massage}}
+                    </button>
+                            <div class="dropdown-menu">
+                                <button class="dropdown-item" (click)="return('wrongItem')">Wrong Item</button>
+                                <button class="dropdown-item" (click)="return('otherReason')">Other Reason</button>
+                                <button class="dropdown-item" (click)="return('mindChange')">Change my mind</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <br><br>
+                    <div class="col-lg-12" *ngIf="!hideForm">
+                        <div class="form-group animate-lable focused">
+
+                            <label class="pl-label">Reason (optional)</label>
+                            <textarea type="" class="form-control" [(ngModel)]="messageRetun" name="messageRetun"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="hideForm" class="vcard-body">
+                <div class="title-head mb-3">
+                    <div class="title-head-left">Package</div>
+                </div>
+                <form class="common-form px-15">
+                    <div class="row gutter-10">
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label class="pl-label">Regular Sized (No. of Items)</label>
+                                <input type="number" class="form-control" [value]="orderData.regularSized" [(ngModel)]="returnData.regularSized" name="regularSized">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label class="pl-label"> Over Sized (No. of Items)</label>
+                                <input type="number" class="form-control" [value]="orderData.overSized" [(ngModel)]="returnData.overSized" name="overSized">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-12">
+                            <div class="form-group animate-lable focused">
+                                <label>Reference No.</label>
+                                <input type="text" class="form-control" [value]="orderData.referenceNumber" name="referenceNumber" [(ngModel)]="returnData.referenceNumber" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Internal Comments</label>
+                                <textarea class="form-control" rows="3" [(ngModel)]="returnData.internalComments" [value]="orderData.internalComments" name="internalComments"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Driver Instruction</label>
+                                <textarea class="form-control" rows="3" [(ngModel)]="returnData.driverInstruction" [value]="orderData.driverInstruction" name="driverInstruction"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="title-head mb-3 mt-2">
+                    <div class="title-head-left">Pick Up Location</div>
+                </div>
+                <form class="common-form px-15">
+                    <div class="row gutter-10">
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Company Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="returnData.picupCompanyName" name="picupCompanyName" [value]="orderData.dropupCompanyName" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Street Address</label>
+                                <input type="text" class="form-control" [(ngModel)]="returnData.picupAddress" name="picupAddress" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Address 2 (optional)</label>
+                                <input type="text" class="form-control" [(ngModel)]="returnData.picupAddress" name="picupAddress" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label>City</label>
+                                <input type="text" class="form-control" [(ngModel)]="returnData.picupCity" name="picupCity" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label>State</label>
+                                <input type="text" class="form-control" [(ngModel)]="returnData.picupState" name="picupState" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Postal Code</label>
+                                <input type="text" class="form-control" [(ngModel)]="returnData.picPostalCode" name="picPostalCode" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="title-head mb-3 mt-2">
+                    <div class="title-head-left">Destianation</div>
+                </div>
+                <form class="common-form px-15">
+                    <div class="row gutter-10">
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Company Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="returnData.dropupCompanyName" name="dropupCompanyName" [value]="orderData.picupCompanyName" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Street Address</label>
+                                <input type="text" class="form-control" [(ngModel)]="returnData.dropupStreetAddress" name="dropupStreetAddress" [value]="orderData.picupAddress" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Address 2</label>
+                                <input type="text" class="form-control" name="dropupAddress2" [(ngModel)]="returnData.dropupAddress2" name="dropupAddress2" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label>City</label>
+                                <input type="text" name="dropupCity" class="form-control" [(ngModel)]="returnData.dropupCity" [value]="orderData.dropupCity" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label>State</label>
+                                <input type="text" class="form-control" [(ngModel)]="returnData.dropupState" name="dropupState" [value]="" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="form-group animate-lable focused">
+                                <label>Postal Code</label>
+                                <input type="text" class="form-control" name="dropupPostalCode" [(ngModel)]="returnData.dropupPostalCode" [value]="orderData.dropupPostalCode" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-4 bottom-form-btns">
+            <button class="btn text-uppercase btn-lg btn-common" (click)="submitRequest()" *ngIf="hideForm || wrongItem || otherReason">Submit request</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cost_modal" tabindex="-1" role="dialog" aria-labelledby="cost_modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cost of Return</h5>
+            </div>
+            <div class="modal-body p-0">
+                <div class="cost-modal-box">
+                    <div class="cost-modal-head" [hidden]="loading">
+                        <div>Total</div>
+                        <span class="cost-price">${{fare.data}}</span>
+                    </div>
+
+                    <div class="cost-modal-btn py-4" [hidden]="loading">
+                        <button class="btn btn-common btn-lg btn-block" type="submit" (click)="onSubmit()" data-dismiss="modal">RETURN ORDER</button>
+                    </div>
+                    <div class="lds-facebook loction" [hidden]="!loading">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

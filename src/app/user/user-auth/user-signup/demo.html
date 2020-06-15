@@ -1,0 +1,37 @@
+<div class="form-group col-md-6">
+    <!-- <input type="text" class="form-control" placeholder="Country"> -->
+    <select class="form-control" (change)="onChangeCountry($event.target.value)" [ngClass]="{ 'is-invalid': submitted && regForm.country.errors }">
+<option value="" disabled>Choose a country</option>
+<!-- <option *ngIf="countryName!=''"  value="countryName" >{{countryName}}</option> -->
+<option  *ngFor="let country of countryInfo; let i = index"  value="{{i}}" [ngValue]="country.CountryName" >{{country.CountryName}}</option>
+</select>
+    <div *ngIf="submitted && regForm.country.errors" class="invalid-feedback">
+        <div *ngIf="regForm.country.errors.required">this field is required</div>
+    </div>
+
+</div>
+<div class="form-group col-md-6">
+    <!-- <input type="text" class="form-control" placeholder="Country"> -->
+    <select class="form-control" (change)="onChangeState($event.target.value)" [ngClass]="{ 'is-invalid': submitted && regForm.state.errors }">
+<option value="" disabled>Choose a state</option>
+<option *ngIf="stateInfo == ''" value="-1">--Select State--</option>
+<option   *ngFor="let state of stateInfo; let j = index" [ngValue] = "state.StateName" value="{{j}}" >{{state.StateName}}</option>
+</select>
+    <div *ngIf="submitted && regForm.state.errors" class="invalid-feedback">
+        <div *ngIf="regForm.state.errors.required">this field is required</div>
+    </div>
+
+</div>
+<div class="form-group col-md-6">
+    <!-- <input type="text" class="form-control" placeholder="Country"> -->
+    <select class="form-control" formControlName="city" [ngClass]="{ 'is-invalid': submitted && regForm.city.errors }">
+<option value="" disabled>Choose a city</option>
+
+
+<option *ngIf="cityInfo == ''"   value="-1">--Select CIty--</option>
+<option  *ngFor="let city of cityInfo; let k = index" [ngValue]="city" >{{city}}</option>
+</select>
+    <div *ngIf="submitted && regForm.city.errors" class="invalid-feedback">
+        <div *ngIf="regForm.city.errors.required">this field is required</div>
+    </div>
+</div>

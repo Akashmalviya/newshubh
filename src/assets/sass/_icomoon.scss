@@ -1,0 +1,65 @@
+@font-face {
+    font-family: 'icomoon';
+    src:  url('assets/fonts/icomoon.eot?tkttz1');
+    src:  url('assets/fonts/icomoon.eot?tkttz1#iefix') format('embedded-opentype'),
+      url('assets/fonts/icomoon.ttf?tkttz1') format('truetype'),
+      url('assets/fonts/icomoon.woff?tkttz1') format('woff'),
+      url('assets/fonts/icomoon.svg?tkttz1#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+  }
+  
+  [class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+  
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .icon-Address-Book:before {
+    content: "\e900";
+    color: #acacac;
+  }
+  .icon-dashboard:before {
+    content: "\e901";
+    color: #fefeff;
+  }
+  .icon-delete:before {
+    content: "\e902";
+  }
+  .icon-edit:before {
+    content: "\e903";
+  }
+  .icon-email:before {
+    content: "\e904";
+    color: #333f54;
+  }
+  .icon-home:before {
+    content: "\e905";
+    color: #acacac;
+  }
+  .icon-invoice:before {
+    content: "\e906";
+    color: #acacac;
+  }
+  .icon-Settings:before {
+    content: "\e907";
+    color: #acacac;
+  }
+  .icon-shopping-bag:before {
+    content: "\e908";
+    color: #acacac;
+  }
+  .icon-User:before {
+    content: "\e909";
+    color: #acacac;
+  }

@@ -1,0 +1,500 @@
+<div class="content-header">
+    <div class="c-head-left">Account</div>
+    <div class="c-head-left">
+
+    </div>
+</div>
+
+<div class="row gutter-10">
+    <div class="col-12">
+        <div class="vcard">
+            <div class="vcard-body pl-0">
+
+                <div class="account-main">
+                    <div class="account-left">
+                        <div class="account-img">
+                            <img id="blah" src="{{companyProfileRes.data.image }}">
+                            <label for="userImg">
+                            <input type="file" id="userImg" accept="image/*" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" (change)="fileChangeEvent($event)" name="file">
+                        </label>
+                        </div>
+                        <div class="lds-facebook loction" [hidden]="!image">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <div class="account-name text-center my-4">Hey, {{companyProfileRes.data.firstContactPerson | titlecase}}</div>
+                        <!-- <div class="account-limit text-center my-4">Threshold Limit : <span>$1500</span></div> -->
+
+                        <div class="text-center account-email my-4">
+                            <span class="icon-email"></span>
+                            <div class="adress-book-text">
+
+                                <label>Email : </label> {{companyProfileRes.data.companyEmail }}
+                            </div>
+                            <div class="head-search" *ngIf="companyProfileRes.data.userType == 'preferred'">
+                                <strong>Days Limit :</strong> {{creditRemaningDays}} days
+
+                            </div>
+                            <div class="head-search" *ngIf="companyProfileRes.data.userType  == 'preferred'">
+                                <strong>Credit Limit :</strong> ${{companyProfileRes.data.remainingCreditLimit}}
+
+                            </div>
+                            <div class="head-search" *ngIf="companyProfileRes.data.userType  == 'preferred'">
+                                <strong>Total Credit Limit :</strong> ${{companyProfileRes.data.creditLimit}}
+
+                            </div>
+                        </div>
+                        <div class="title-head d-block text-center mb-2">
+                            <div class="title-head-left">Reset Password</div>
+                        </div>
+
+                        <alert></alert>
+                        <form class="common-form mt-4" (ngSubmit)="onChange(form)" #form="ngForm">
+                            <div class="form-group animate-lable">
+
+                                <label>Old Password</label>
+                                <input type="password" class="form-control" name="oldpassword" [(ngModel)]="passwordLog.oldpassword" required>
+                            </div>
+                            <div class="form-group animate-lable">
+                                <label>New Password</label>
+                                <input type="password" class="form-control" minlength="8" #newpassword="ngModel" name="newpassword" [(ngModel)]="passwordLog.newpassword" required>
+                                <div *ngIf="newpassword.invalid && (newpassword.dirty || newpassword.touched)" class="text-danger">
+                                    <div *ngIf="newpassword.errors.required">
+                                        Password is required.
+                                    </div>
+                                    <div *ngIf="newpassword.errors.minlength">
+                                        Password must be at least 8 characters long.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group animate-lable">
+                                <label>Confirm New Password</label>
+                                <input type="password" class="form-control" name="confirmpassword" [(ngModel)]="passwordLog.confirmpassword" required>
+                                <small class="text-danger" *ngIf="flag">Password does not match</small>
+
+                            </div>
+                            <div class="pt-2">
+                                <button type="submit" [hidden]="password" class="btn btn-common btn-block" (click)="onChange(form)">Reset Password</button>
+                                <div class="lds-facebook loction" [hidden]="!password">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="account-right">
+
+                        <div class="title-head mb-3">
+                            <div class="title-head-left">User Information</div>
+                            <div class="title-head-right">
+                                <button (click)="userImformation ? userImformation = false : userImformation = true " class="card-link no-underline" matTooltip="Edit"><span class="icon-edit"></span></button>
+                            </div>
+                        </div>
+                        <div *ngIf="!userImformation" class="row px-3 gutter-10">
+
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Company Name :  </label> {{companyProfileRes.data.companyName | titlecase}}
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Company Contact Number : </label> {{companyProfileRes.data.companyPhone | titlecase}}
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Company Email : </label> {{companyProfileRes.data.companyEmail }}
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Address : </label> {{companyProfileRes.data.streetAdress | titlecase}}
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Postal Code : </label> {{companyProfileRes.data.postalCode }}
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="userImformation" class="container">
+                            <form class="example-form" [formGroup]="updateForm">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label> Company Name </mat-label>
+                                            <input matInput placeholder="Company Name" required formControlName="companyName">
+                                            <mat-error *ngIf="regForm.companyName.errors?.required">
+                                                This is field <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>Contact Contact Number </mat-label>
+                                            <input matInput placeholder="Contact Contact Number" type="tel" formControlName="companyPhone" required>
+                                            <mat-error *ngIf="regForm.companyPhone.errors?.required">
+                                                This is field <strong>required</strong>
+                                            </mat-error>
+
+                                        </mat-form-field>
+                                        <div *ngIf="submitted && regForm.companyPhone.errors" class="text-danger">
+                                            <div *ngIf="regForm.companyPhone.errors.required">Invalid phone number</div>
+                                            <div *ngIf="regForm.companyPhone.errors?.minlength">Minimum lenght should be 10</div>
+                                            <div *ngIf="regForm.companyPhone.errors?.maxlength">maxlength lenght should be 11</div>
+                                            <div *ngIf="regForm.companyPhone.errors.pattern">Invalid phone number</div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>Company Email</mat-label>
+                                            <input matInput placeholder="Company Email" type="email" required formControlName="companyEmail">
+                                            <mat-error *ngIf="regForm.companyEmail.errors?.required">
+                                                This is field <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>Address</mat-label>
+                                            <input matInput placeholder="Address" formControlName="streetAdress" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (keypress)="addresChange = true" (onAddressChange)="handleNewAddressChange($event)" required>
+                                            <mat-hint class="pb-2">Select nearby address from dropdown</mat-hint>
+                                            <mat-error *ngIf="regForm.streetAdress.errors?.required">
+                                                This is field <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>Address 2</mat-label>
+                                            <input matInput placeholder="Address 2" formControlName="address2">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>State</mat-label>
+                                            <input matInput placeholder="State" formControlName="state">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>Country</mat-label>
+                                            <input matInput placeholder="Country" formControlName="country">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>City</mat-label>
+                                            <input matInput placeholder="City" formControlName="city">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>Postal Code</mat-label>
+                                            <input matInput placeholder="Postal Code" value="{{companyProfileRes.data.postalCode}}" formControlName="postalCode" required>
+                                        </mat-form-field>
+                                        <mat-error *ngIf="regForm.postalCode.errors?.required">
+                                            This is field <strong>required</strong>
+                                        </mat-error>
+                                        <div *ngIf="regForm.postalCode.errors?.pattern" class="text-danger">Invalid postal code</div>
+                                    </div>
+
+                                </div>
+
+                                <div class="text-right mb-2">
+                                    <button mat-button color="warn" type="submit" *ngIf="!addresChange" [disabled]="loading" (click)="updateProfile()"><i class="far fa-save"></i> Save changes</button>
+                                    <button mat-button (click)="userImformation ? userImformation = false : userImformation = true;"><i class="fas fa-remove-format"></i> Cancel</button>
+                                </div>
+                            </form>
+
+                        </div>
+
+                        <div class="title-head mb-3">
+                            <div class="title-head-left">Owner Details</div>
+                            <div class="title-head-right">
+                                <button (click)="ownerDetails? ownerDetails = false : ownerDetails = true" class="card-link no-underline" matTooltip="Edit"><span class="icon-edit"></span></button>
+                            </div>
+                        </div>
+                        <div *ngIf="!ownerDetails" class="row px-3 gutter-10">
+
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Main Person Name :  </label> {{companyProfileRes.data.firstContactPerson | titlecase}}
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Main Person Role : </label> {{companyProfileRes.data.firstRole | titlecase}}
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Main Person Email : </label> {{companyProfileRes.data.firstContactEmail | titlecase}}
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Main Person Number : </label> {{companyProfileRes.data.firstContactPhone | titlecase}}
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Secondary Person Name : </label> {{companyProfileRes.data.secondContactPerson }}
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Secondary Person Role : </label> {{companyProfileRes.data.secondaryRole }}
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Secondary Person Email : </label> {{companyProfileRes.data.secondContactEmail }}
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Secondary Person Number : </label> {{companyProfileRes.data.secondContactPhone }}
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="ownerDetails" class="container">
+                            <form class="example-form" [formGroup]="updateForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label> Main Person Name </mat-label>
+                                            <input matInput placeholder="Main Person Name" formControlName="firstContactPerson" pattern='[A-Za-z\s]*' required>
+                                            <mat-error *ngIf="regForm.firstContactPerson.errors?.required">
+                                                This is field <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error *ngIf="regForm.firstContactPerson.errors?.pattern">
+                                                Numbers are not allowed in <strong>name field.</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>Main person Role</mat-label>
+                                            <input matInput placeholder="Main person Role" formControlName="firstRole" required>
+                                            <mat-error *ngIf="regForm.firstRole.errors?.required">
+                                                This is field <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>Main Person Email</mat-label>
+                                            <input matInput placeholder="Main Person Email" type="email" formControlName="firstContactEmail" required>
+                                            <mat-error *ngIf="regForm.firstContactEmail.errors?.required">
+                                                This is field <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>First Person Number</mat-label>
+                                            <input matInput placeholder="First Person Number" type="tel" formControlName="firstContactPhone" required>
+                                            <mat-error *ngIf="regForm.firstContactPhone.errors?.required">
+                                                This is field <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                        <div *ngIf="submitted && regForm.firstContactPhone.errors" class="text-danger">
+                                            <div *ngIf="regForm.firstContactPhone.errors.required">Invalid phone number</div>
+                                            <div *ngIf="regForm.firstContactPhone.errors.minlength">Minimum lenght should be 10</div>
+                                            <div *ngIf="regForm.firstContactPhone.errors.maxlength">maxlength lenght should be 11</div>
+                                            <div *ngIf="regForm.firstContactPhone.errors.pattern">Invalid phone number</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>Secondary Person Name</mat-label>
+                                            <input matInput placeholder="Secondary Person Name" formControlName="secondContactPerson" pattern='[A-Za-z\s]*' required>
+                                            <mat-error *ngIf="regForm.secondContactPerson.errors?.required">
+                                                This is field <strong>required</strong>
+                                            </mat-error>
+                                            <mat-error *ngIf="regForm.secondContactPerson.errors?.pattern">
+                                                Numbers are not allowed in <strong>name field.</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>Secondary Person Role</mat-label>
+                                            <input matInput placeholder="Secondary Person Role" formControlName="secondaryRole" required>
+                                            <mat-error *ngIf="regForm.secondaryRole.errors?.required">
+                                                This is field <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>Secondary Person Email</mat-label>
+                                            <input matInput placeholder="Secondary Person Email" type="email" formControlName="secondContactEmail" required>
+                                            <mat-error *ngIf="regForm.secondContactEmail.errors?.required">
+                                                This is field <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="example-full-width d-block form-wrap">
+                                            <mat-label>Secondary Person Number</mat-label>
+                                            <input matInput placeholder="Secondary Person Number" type="tel" minlength="10" maxlength="11" formControlName="secondContactPhone" required>
+                                            <mat-error *ngIf="regForm.secondContactPhone.errors?.required">
+                                                This is field <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                        <div *ngIf="submitted && regForm.secondContactPhone.errors" class="text-danger">
+                                            <div *ngIf="regForm.secondContactPhone.errors.required">Invalid phone number</div>
+                                            <div *ngIf="regForm.secondContactPhone.errors.minlength">Minimum lenght should be 10</div>
+                                            <div *ngIf="regForm.secondContactPhone.errors.maxlength">maxlength lenght should be 11</div>
+                                            <div *ngIf="regForm.secondContactPhone.errors.pattern">Invalid phone number</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-right mb-2">
+                                    <button mat-button color="warn" type="submit" [disabled]="loading" (click)="updateProfile()"><i class="far fa-save"></i> Save changes</button>
+                                    <button mat-button (click)="ownerDetails = false"><i class="fas fa-remove-format"></i> Cancel</button>
+                                </div>
+                            </form>
+
+                        </div>
+
+
+                        <div class="title-head my-3">
+                            <div class="title-head-left">Package Information</div>
+                            <div class="title-head-right">
+                                <button class="card-link no-underline" (click)="packageDeatails?packageDeatails=false:packageDeatails=true" matTooltip="Edit"><span class="icon-edit"></span></button>
+                            </div>
+                        </div>
+
+                        <div *ngIf="!packageDeatails" class="row px-3 gutter-10">
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Package Type : </label> <span *ngFor="let item of companyProfileRes.data.itemType">{{item.itemName}} </span>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Package Weight : </label> <span *ngFor="let item of companyProfileRes.data.itemWeight">{{item.itemWeight}} </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="packageDeatails" class="container">
+                            <form class="login-form" [formGroup]="itemUpdateForm">
+
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label class="login-label d-block">In general, What kind of items will you be delivering regularly?</label>
+                                        <label class="ck-box" *ngFor="let item of itemType"><input type="checkbox" (change)="onChangeType(item._id, $event.target.checked)" [checked]= "item.flag"  id="id{{item._id}}"><span>{{item.itemName}}</span>&nbsp; </label>&nbsp;
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="login-label d-block">How heavy will your items be?</label>
+                                        <label class="ck-box" *ngFor="let item of itemWeight.data"><input type="checkbox" (change)="onChangeWeight(item._id, $event.target.checked)" [checked]= "item.flag"  id="{{item._id}}"><span>{{item.itemWeight}}</span>&nbsp; </label>&nbsp;
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="text-right mb-2">
+                                <button mat-button color="warn" type="submit" [disabled]="loading" (click)="updateProfileItem()"><i class="far fa-save"></i> Save changes</button>
+                                <button mat-button (click)="packageDeatails = false"><i class="fas fa-remove-format"></i> Cancel</button>
+                            </div>
+                        </div>
+                        <div class="title-head my-3">
+                            <div class="title-head-left">Payment Information</div>
+                            <div class="title-head-right" *ngIf="cardObjct.data != null">
+                                <button class="card-link no-underline" data-toggle="modal" (click)="Alert.clear();" data-target="#Payment" matTooltip="Edit"><span class="icon-edit"></span></button>
+                            </div>
+                            <div class="title-head-right" *ngIf="cardObjct.data === null">
+                                <button class="card-link no-underline" data-toggle="modal" (click)="Alert.clear();" data-target="#Payment" matTooltip="Add"> <i class="fa fa-plus">&nbsp;</i><strong>Add Card </strong></button>
+                            </div>
+                        </div>
+                        <div class="row px-3 gutter-10" *ngIf="cardObjct.data != null || ''">
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label> {{cardObjct.data.funding | titlecase}} Card Number : </label> #### #### #### {{cardObjct.data.last4}}
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6" *ngIf="cardObjct.data.name != null">
+                                <div class="adress-book-text">
+                                    <label>Cardholder's Name : </label> {{cardObjct.data.name | titlecase}}
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="adress-book-text">
+                                    <label>Expiry Date : </label> {{cardObjct.data.exp_month}}/{{cardObjct.data.exp_year}}
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- .account-main -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Large modal -->
+    <!-- Button trigger modal -->
+
+
+    <!-- package Information Modal -->
+    <div class="modal fade modal-wrapper" id="Payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Payment Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container">
+                        <alert></alert>
+                        <app-payment-gate [data]="data"></app-payment-gate>
+                        <div class="modal-footer">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- package Information Modal -->
+    <div class="modal fade modal-wrapper" id="imageCrop" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Crop Image</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container text">
+                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [containWithinAspectRatio]="containWithinAspectRatio" [aspectRatio]="1 / 1" [resizeToWidth]="256" [cropperMinWidth]="200" [onlyScaleDown]="true" [roundCropper]="false"
+                            [canvasRotation]="canvasRotation" [transform]="transform" [alignImage]="'left'" [style.display]="showCropper ? null : 'none'" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady($event)"
+                            (loadImageFailed)="loadImageFailed()"></image-cropper>
+
+
+                        <div class="modal-footer">
+                            <button type="button" [hidden]="loading" class="btn btn-primary btn-common" (click)="updateProfilePic()" data-dismiss="modal">Save changes</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

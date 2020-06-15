@@ -1,0 +1,40 @@
+<div class="front-module">
+    <div class="login-wrapper">
+        <div class="login-bg-img"></div>
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-box-head">
+                    <h1>BRYSKIT</h1>
+                    <div class="title-login">sign in</div>
+                </div>
+
+                <form [formGroup]="loginForm" class="login-form">
+                    <alert></alert>
+                    <div class="form-group">
+                        <label class="login-label">Email</label>
+                        <input formControlName="username" type="text" class=" lowwerCase form-control " placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label class="login-label">Password</label>
+                        <input formControlName="password" type="password" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="login-btn-div">
+                        <button class="btn btn-common btn-lg btn-block" *ngIf="!loading" (click)="onSubmit(); loading = true">sign in</button>
+                        <div class="lds-facebook loction" [hidden]="!loading">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="login-box-link text-center">
+                        <a class="login-label" routerLink="/user/login/forgot-password">Forgot Password?</a>
+                    </div>
+                </form>
+            </div>
+            <div class="text-center login-link">
+                Don't have an account?
+                <a routerLink="../signup">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</div>

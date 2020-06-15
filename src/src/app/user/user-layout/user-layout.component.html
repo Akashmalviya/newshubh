@@ -1,0 +1,11 @@
+<div id="wrapper" class="wrapper user-module">
+    <app-user-sidebar></app-user-sidebar>
+    <div id="content-wrapper" class="content-wrapper">
+       <app-user-header></app-user-header>
+       <section class="content">
+          <router-outlet></router-outlet>
+       </section>
+       <app-user-footer></app-user-footer>
+       <div (click)="closeSidebar()" class="content-wrapper-overlay"></div>
+    </div>
+ </div>

@@ -1,0 +1,144 @@
+<div class="content-header">
+    <div class="c-head-left">Dashboard</div>
+    <div class="c-head-left">
+        <a routerLink="/user/orders/new-order" class="btn btn-common text-light"><i class="fa fa-plus"></i> new delivery</a>
+    </div>
+</div>
+
+<div class="row gutter-10">
+    <div class="col-xl-6 col-md-6 col-lg-6 mb-20">
+        <div class="vcard custom">
+            <div class="vcard-head">
+                <h3>Notifications</h3>
+                <div class="vcard-head-right">
+                    <a class="card-link" href="javascript:void(0);" (click)="showAllNotification()" *ngIf="newOrderNotificationRes.length > 0">View All</a>
+                </div>
+            </div>
+
+            <div class="vcard-body">
+                <ul class="list-unstyled notification-list m-0">
+                    <li *ngFor="let item of filteredArray">
+                        <div>
+                            <div class="title" *ngIf="item?.length !=0">
+                                <a routerLink="/user/orders/details/{{item.orderId}}" class="text-dark" (click)="readNotification(item._id)" href="#"> {{item?.message}} </a>
+                            </div>
+                            <div class="date">{{item.createdAt | date : 'medium'}}
+
+                                <mat-chip class="chip" color="warn" *ngIf="!item.read">
+                                    new
+                                </mat-chip>
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <p class="text-danger text-center" *ngIf="newOrderNotificationRes.length < 1">Data no found</p>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-xl-4 col-md-6 mb-20">
+        <div class="vcard custom">
+            <div class="vcard-head">
+                <h3>Scheduled Orders</h3>
+                <div class="vcard-head-right">
+                    <a class="card-link" routerLink="/user/orders">View All</a>
+                </div>
+            </div>
+            <div class="vcard-body">
+                <div class="sc-order" *ngFor="let item">
+                    <div class="sc-date">{{item.orderDate | date: 'mediumDate'}}</div>
+                    <div class="sc-info">
+                        <div><label>Order ID : </label>
+                            <a class="color-inherit text-underline">{{item._id}}</a>
+                        </div>
+                        <div class=""><label>Deliver To : </label> {{item.dropupCompanyName}}
+                        </div>
+                        <div class="sc-links mt-1">
+                            <a class="color-red mr-3 text-underline" href="javascript:void(0);">Reschedule</a>
+                            <a class="text-underline" href="javascript:void(0);" routerLink="/home">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="col-xl-6 col-md-6 col-lg-6 mb-20">
+        <div class="vcard custom">
+            <div class="vcard-head mb-2">
+                <h3>Payment History</h3>
+                <div class="vcard-head-right">
+                    <a class="card-link" href="javascript:void(0);" *ngIf="invoicsData.length > 0" routerLink="/user/invoices">View All</a>
+                </div>
+            </div>
+            <div class="vcard-body">
+                <p class="text-danger text-center" *ngIf="invoicsData.length < 1">Data no found</p>
+                <div class="pay-history" *ngFor="let i of invoicsData">
+                    <div class="pay-img"><img src="assets/images/user/icon-bill.png"></div>
+                    <div class="pay-info">
+                        <div><label>Invoice Number </label>
+                            <a class="color-inherit text-underline" routerLink="/user/invoices/invoicesDetails/{{i._id}}"> {{i._id}}</a>
+                        </div>
+                        <div><label>Invoice Date : </label> {{i.orderdeliveredDate | date : 'medium'}}
+                        </div>
+                        <div><label>Invoice Amount : </label> ${{i.orderEstimatedCharge}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row gutter-10">
+    <div class="col-12 mb-20">
+        <div class="vcard">
+            <div class="vcard-head">
+                <h3 class="toggle-table">
+                    <a href="javascript:void(0);" id="showCurrentOrder" class="color-inherit active mr-3" (click)="onclick('Current Orders')">Current Orders</a>
+                    <a href="javascript:void(0);" id="showCompetedOrder" class="color-inherit" (click)="onclick('completedOders')">Completed Orders</a>
+                </h3>
+                <!-- <div class="vcard-head-right">
+                    <span class="card-link">
+                            <label class="ck-box">
+                              <input type="checkbox" name="">
+                              <span>Select All</span>
+                    </label>
+                    </span>
+                    <a class="card-link" href="javascript:void(0);">View All</a>
+                    <a class="card-link no-underline" href="javascript:void(0);"><span class="icon-delete" data-toggle="tooltip" title="Delete"></span></a>
+                </div> -->
+            </div>
+            <div class="vcard-body">
+                <app-order-table [orderResquest]="dataType"></app-order-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row gutter-10">
+    <div class="col-12">
+        <div class="vcard h-100">
+            <div class="vcard-head">
+                <h3>Order Summary</h3>
+                <div class="vcard-head-right">
+                    <mat-button-toggle-group appearance="legacy">
+                        <mat-button-toggle (click)="graphData('allYear')">From Beginning</mat-button-toggle>
+                        <mat-button-toggle (click)="graphData('year')">Year</mat-button-toggle>
+                        <mat-button-toggle (click)="graphData('month')">Month</mat-button-toggle>
+                        <mat-button-toggle (click)="graphData('week')">7 Days</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+            </div>
+            <div class="vcard-body">
+                <div style="display: block;">
+                    <canvas baseChart width="100" height="35" [datasets]="lineChartData" [labels]="lineChartLabels" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
+                </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->

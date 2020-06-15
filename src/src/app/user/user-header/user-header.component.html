@@ -1,0 +1,89 @@
+<div class="main-header">
+    <div class="main-header-left">
+        <a (click)="toggleSidebar($event)" id="sidebarToggler" class="sidebarToggler mr-3" href="javascript:void(0);">
+            <i class="fa fa-bars"></i>
+        </a>
+        <!-- <a href="javascript:void(0);"><img src="img/home-button.png"></a> -->
+        <a class="no-underline" routerLink="/user/dashboard" matTooltip="Home"><span class="icon-home"></span></a>
+        <mat-form-field class="ml-3">
+            <mat-label><i class="fa fa-search"></i> Search by order</mat-label>
+
+            <input type="search" matInput placeholder="Search by order" aria-label="State" #search [matAutocomplete]="auto" [formControl]="stateCtrl">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let item of orderData |filter : search.value" (click)="onchange(item._id)">
+                    <strong>{{item.dropupStreetAddress}}</strong> |
+                    <span>{{item.dropupCompanyName}}</span>
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+    <div class="main-header-right">
+        <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+                <div class="head-search" *ngIf="companyProfileRes.data.userType=='preferred'">
+                    <label>Days Limit :</label>{{creditRemaningDays}} days
+                </div>
+            </li>
+            <li class="list-inline-item">
+                <div class="head-search" *ngIf="companyProfileRes.data.userType=='preferred'">
+                    <label>Credit Limit :</label> ${{companyProfileRes.data.remainingCreditLimit}}
+                </div>
+            </li>
+            <li class="list-inline-item notification-dp ml-1">
+                <a href="javascript:void(0);">
+                    <span class="count">{{newOrderNotificationRes.notificationsUnreadCount}}</span>
+                    <i class="fa fa-bell"></i>
+                </a>
+                <div class="n-dropdown mr-3">
+                    <div class="n-dropdown-head">Notification</div>
+                    <div class="n-dropdown-body">
+                        <ul class="list-unstyled notification-list m-0">
+                            <li *ngFor="let item of filteredArray">
+                                <div>
+                                    <div class="title" *ngIf="item?.length !=0">
+                                        <a routerLink="/user/orders/details/{{item.orderId}}" class="text-dark" (click)="readNotification(item._id)" href="#"> {{item?.message}} </a>
+                                    </div>
+                                    <div class="date">{{item.createdAt | date : 'medium'}}
+                                        <mat-chip class="chip" color="warn" *ngIf="!item.read">
+                                            new
+                                        </mat-chip>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="n-dropdown-foot text-center">
+                        <a class="card-link" href="javascript:void(0);" (click)="showAllNotification()" *ngIf="filteredArray.length > 0">View All</a>
+                    </div>
+                </div>
+            </li>
+            <!-- <li class="list-inline-item">
+                <a routerLink="/user/payment-steps" matTooltip="Setting"><i class="fa fa-cog"></i></a>
+            </li> -->
+            <li class="list-inline-item mr-4">
+                <a matTooltip="Logout" data-toggle="modal" data-target="#logout"><i class="fa fa-power-off"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logoutLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header rounded-0">
+                <h5 class="modal-title" id="logoutLabel">Logout</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body text-center">
+                Are you sure you want to logout?
+                <div class="modal-footer justify-content-center border-0">
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 30px;">Close</button> -->
+                    <button type="button" class="btn btn-common" (click)="logout()" data-dismiss="modal">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

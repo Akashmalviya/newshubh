@@ -1,0 +1,19 @@
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.close {
+    padding: 0;
+    margin: 0;
+    background: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    right: -15px;
+    top: -12px;
+    outline: none;
+}

@@ -1,0 +1,74 @@
+.text-danger {
+    color: red($color: #000000);
+    font-size: 12px;
+}
+
+// ::ng-deep .mat-horizontal-stepper-header {
+//     pointer-events: none !important;
+// }
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: #fff !important;
+    opacity: 1;
+}
+
+input.empty {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
+
+.card-new {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    .card-body {
+        background: #fff;
+        border-radius: .25rem;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        padding: 2rem;
+    }
+}
+
+.lowwerCase {
+    text-transform: lowercase;
+}
+
+.front-module .btn-common {
+    padding: 14px 42px 12px;
+    width: -webkit-fill-available;
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}
+
+.select-field {
+    display: block;
+}
+
+select.mat-input-element {
+    top: 0;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.mat-step-icon {
+    background-color: #f5f5f5;
+    color: #afafaf;
+}

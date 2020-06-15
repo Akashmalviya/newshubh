@@ -1,0 +1,56 @@
+<div mat-dialog-content class="box">
+    <div class="vcard-body">
+        <div id="CurrentOrder" class="md-responsive">
+            <table class="table table-common" cellspacing="0">
+                <thead class="color m-3">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Order Date</th>
+                        <th>Delivery To</th>
+                        <th>ETA</th>
+                        <th>Est. Fair ($)</th>
+                        <th>Allocated Driver Name</th>
+                        <th>Vehicle Number</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let item of id.reverse()">
+                        <td>
+
+                            <a routerLink="/user/orders/details/{{item._id}}" class="orderDeatails" (click)="dialogRef.close()">{{item._id}}</a>
+
+                        </td>
+                        <td>{{item.orderDate | date: 'mediumDate'}}</td>
+                        <td>
+                            {{item.dropupCompanyName}}
+
+                        </td>
+                        <td *ngIf="item.orderEstimatedTime == ''"> --- </td>
+                        <td *ngIf="item.orderEstimatedTime != ''">{{item.orderEstimatedTime}}</td>
+                        <td>{{item.orderEstimatedCharge}}</td>
+                        <td *ngIf="item.driverId?.length === 0">Driver Not Allocated</td>
+                        <td *ngIf="item.driverId?.length > 0">{{item.driverId[0].firstName}} {{item.driverId[0].lastName}}</td>
+
+                        <td *ngIf="item.driverId?.length === 0"> --- </td>
+                        <td *ngIf="item.driverId?.length > 0">{{item.driverId[0].vehicleNumber}}</td>
+
+                        <td>{{item.orderStatus}}</td>
+                        <td *ngIf="item.orderStatus != 'delivered'"><button class="btn btn-sm btn-outline" [disabled]="(item.tripSupportFlag) || (item.orderStatus === 'inprogress')" (click)="openModal(item._id)">CANCEL</button></td>
+                        <td *ngIf="item.orderStatus == 'delivered'">
+                            <button class="btn btn-sm btn-outline" routerLink="/user/orders/return-order/{{item._id}}" [disabled]="item.tripSupportFlag" (click)="dialogRef.close()">RETURN ORDER</button>
+
+                        </td>
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+    <button class="m-4" mat-raised-button (click)="dialogRef.close()">close</button>
+</div>
